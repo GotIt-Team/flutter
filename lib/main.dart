@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'views/pages/user_profile_view.dart';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -10,8 +12,9 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
-      //home:
+      
       ),
+      home:HomePage()
       
     );
   }
