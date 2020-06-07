@@ -1,16 +1,9 @@
-# ui
+# GotIt ![Technique](https://img.shields.io/badge/Version-1.0-blue)
 
-A new Flutter project.
+Find your lost belongs using mechanisms of AI and Image Processing
 
-## Getting Started
+## flutter mobile app
 
-This project is a starting point for a Flutter application.
+### used technologies : ![Technique](https://img.shields.io/badge/Technique-AI-important)    ![Technique](https://img.shields.io/badge/Technique-Image%20Processing-success)   ![Technique](https://img.shields.io/badge/Technique-Text%20Processing-critical)   ![Technique](https://img.shields.io/badge/Technique-Matching-yellow)
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+[UI Prototype Link](https://xd.adobe.com/view/59bb073c-c53b-498e-5603-8a98ed202d01-2f8a/)
