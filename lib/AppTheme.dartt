@@ -1,0 +1,46 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+class MyTheme{
+   final ThemeData defaultTheme = ThemeData(
+    //set of thirteen colors that can be used to configure the color properties of most components.
+    colorScheme: ColorScheme(
+      primary: Colors.white, //primary color is the color displayed most frequently across your app's screens and components.
+      primaryVariant: Colors.white, //light or dark from primary
+      secondary: Colors.white,
+      secondaryVariant: Colors.white,
+      background: Colors.blue,
+      surface: Colors.blue,
+      error: Colors.red,
+      brightness: Brightness.light,
+      onSurface: Colors.white,
+      onPrimary: Colors.white,
+      onSecondary: Colors.white,
+      onError: Colors.white,
+      onBackground: Colors.white
+    ),
+
+  );
+   final ThemeData anotherTheme = ThemeData(
+    //set of thirteen colors that can be used to configure the color properties of most components.
+    colorScheme: ColorScheme(
+        primary: Colors.black12, //primary color is the color displayed most frequently across your app's screens and components.
+        primaryVariant: Colors.black12, //light or dark from primary
+        secondary: Colors.black12,
+        secondaryVariant: Colors.black12,
+        background: Colors.blue,
+        surface: Colors.blue,
+        error: Colors.red,
+        brightness: Brightness.light,
+        onSurface: Colors.black12,
+        onPrimary: Colors.black12,
+        onSecondary: Colors.black12,
+        onError: Colors.black12,
+        onBackground: Colors.black12
+    ),
+
+  );
+  ThemeData IsDarker(bool value){
+    if(value==true){return defaultTheme;}
+    else { return anotherTheme;} 
+  }
+}
