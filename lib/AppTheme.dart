@@ -84,3 +84,13 @@ class AppTheme {
     themeHandler.switchTheme(isDark);
   }
 }
+
+
+// app colors
+/***
+ * system bar color & primary color (#3B7585)
+ * app bar color (#458C9E)
+ * app background (#D1D0B5)
+ * text primary color (#000000)
+ * sub title color (#BDC3C7)
+***/
