@@ -1,6 +1,21 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-class MyTheme{
+
+class ThemeHandler with ChangeNotifier {
+  bool _isDark = false;
+
+  bool get isDark {
+    return _isDark;
+  }
+
+  void switchTheme(bool isDark) {
+    _isDark = isDark;
+    notifyListeners();
+  }
+}
+
+class AppTheme {
+  static ThemeHandler themeHandler = ThemeHandler();
 
   static final ThemeData defaultTheme = ThemeData(
     backgroundColor: Colors.white,
@@ -15,19 +30,17 @@ class MyTheme{
       color: Colors.white54,
     ),
     buttonTheme: ButtonThemeData(
-        buttonColor: Colors.white,  //text on button
-        hoverColor: Colors.blue,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15)
-        ),
+      buttonColor: Colors.white, //text on button
+      hoverColor: Colors.blue,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15)
+      ),
       textTheme: ButtonTextTheme.accent
     ),
     inputDecorationTheme: InputDecorationTheme(
       focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(5)),
-          borderSide: BorderSide(
-              color: Colors.blue
-          )
+        borderRadius: BorderRadius.all(Radius.circular(5)),
+        borderSide: BorderSide(color: Colors.blue)
       )
     ),
     textTheme: TextTheme(
@@ -42,32 +55,32 @@ class MyTheme{
     ),
   );
 
-
   static final ThemeData anotherTheme = ThemeData(
-    backgroundColor: Colors.black,
-    scaffoldBackgroundColor: Colors.black,
+    primaryColor: Colors.brown,
+    backgroundColor: Colors.brown,
+    scaffoldBackgroundColor: Colors.brown,
     appBarTheme: AppBarTheme(
-      color: Colors.lightBlue,
+      color: Colors.black,
       iconTheme: IconThemeData(
         color: Colors.black,
       ),
     ),
     iconTheme: IconThemeData(
-      color: Colors.black45,
+      color: Colors.black,
     ),
     textTheme: TextTheme(
       title: TextStyle(
         color: Colors.black,
         fontSize: 20.0,
       ),
-
     ),
   );
 
+  static ThemeMode get currentMode {
+    return themeHandler.isDark ? ThemeMode.dark : ThemeMode.light;
+  }
 
-
-  static ThemeData IsDarker(bool value){
-    if(value==true){return defaultTheme;}
-    else { return anotherTheme;}
+  static void switchTheme(bool isDark) {
+    themeHandler.switchTheme(isDark);
   }
 }

@@ -1,6 +1,7 @@
 //every view should have a presenter
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:ui/AppTheme.dart';
 import '../../Presenters/user_profile_presenter.dart';
 
 class HomePage extends StatefulWidget {
@@ -12,16 +13,7 @@ class HomePage extends StatefulWidget {
 }
 
 class HomeState extends State<HomePage> {
-
-  List<Widget> text(){
-    var data = widget._homePresenter.fetch();
-    List<Widget> result = [];
-    for(int i = 0; i < data.length; i++){
-      result.add(Text('${data[i]}'));
-    }
-    return result;
-  }
-
+  bool dark = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,8 +43,14 @@ class HomeState extends State<HomePage> {
             validator: widget._homePresenter.validateAge,
           ),
           SizedBox(height:10.0),
-          FlatButton(onPressed: widget._homePresenter.submit, child: Text("Submit")),
-          ...text()
+          FlatButton(onPressed: (){
+            dark = !dark;
+            AppTheme.switchTheme(dark);
+          }, child: Text("Submit")),
+          Switch(value: true, 
+            onChanged: (value){
+              AppTheme.switchTheme(value);
+            })
         ]),
       ),
     );
