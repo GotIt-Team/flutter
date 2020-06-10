@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'AppTheme.dart';
+import 'package:gotit/AppTheme.dart';
 
 void main() => runApp(App());
 
@@ -8,8 +8,7 @@ class App extends StatefulWidget{
   @override
   State<StatefulWidget> createState() {
     return AppState();
-  }
-  
+  } 
 }
 
 
