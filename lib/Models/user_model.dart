@@ -1,2 +1,7 @@
-//every user should have a service class to handle its data from the api
-//or we may use a generic repository
+
+class User{
+  String name;
+  String image;
+
+  User({this.name, this.image});
+}

@@ -18,10 +18,10 @@ class AppTheme {
   static ThemeHandler themeHandler = ThemeHandler();
 
   static final ThemeData lightTheme = ThemeData(
-    backgroundColor: Color(0xD1D0B5),
-    scaffoldBackgroundColor: Color(0xD1D0B5),
+    backgroundColor: Colors.white,
+    scaffoldBackgroundColor: Colors.white,
     appBarTheme: AppBarTheme(
-      color: Color(0x458C9E),
+      color: Colors.blue,
       iconTheme: IconThemeData(
         color: Colors.white,
       ),
