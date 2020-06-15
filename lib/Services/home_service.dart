@@ -8,10 +8,11 @@ class HomeService{
       return Item(
         user: User(
           name: "Badr",
-          image: "images/badr.jpg"
+          image: "assets/images/Sheka.jpg"
         ),
+        id:1,
         content: "descripton",
-        image: "images/item.jpg",
+        image: "assets/images/salah.jpg",
         creationData: "20-09-1998"
       );
     });

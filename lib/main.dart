@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-
 import 'package:gotit/app_theme.dart';
+import 'package:gotit/views/pages/post_inner_view.dart';
+import 'package:gotit/views/pages/tabs.dart';
 
 void main() => runApp(App());
 
@@ -13,6 +14,8 @@ class App extends StatefulWidget{
 
 
 class AppState extends State<App> {
+  int numperOfTabs=2;
+  String appBarTitle='home';
   @override
   void initState(){
     super.initState();
@@ -29,8 +32,26 @@ class AppState extends State<App> {
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
       themeMode: AppTheme.currentMode,
-      //home: 
-    );
-  }
-}
+      home: TapsController(numperOfTabs,appBarTitle),
+           // routes:
+            //{  '/admin': (BuildContext context) =>,
+              //'/home': (BuildContext context) => , 
+            //}
+               onGenerateRoute: (RouteSettings settings) {
+        final List<String> pathElements = settings.name.split('/');
+        if (pathElements[0] != '') {
+          return null;
+        }
+        if (pathElements[1] == 'item') {
+          final int id = int.parse(pathElements[2]);
+          return MaterialPageRoute<bool>(
+            builder: (BuildContext context) => PostInnerView(id:id),
+          );
+        }
+        
+        return null;
+      },
+          );
+        }
+      }
 

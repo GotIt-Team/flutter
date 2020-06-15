@@ -1,4 +1,5 @@
 
+import 'package:flutter/cupertino.dart';
 import 'package:gotit/Models/user_model.dart';
 
 class Item{
@@ -6,7 +7,8 @@ class Item{
   String content;
   String creationData;
   String image;
+  int id;
   
-  Item({this.user,this.content,this.creationData,this.image,});
+  Item({@required this.id,this.user,this.content,this.creationData,this.image,});
 
 }

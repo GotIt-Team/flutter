@@ -7,13 +7,15 @@ class ItemCard extends StatelessWidget {
   final String creationDate;
   final String image;
   final String content;
+  final int id;
 
-  ItemCard({this.userName, this.userImage, this.creationDate, this.image, this.content});
+  ItemCard({@required this.id,this.userName, this.userImage, this.creationDate, this.image, this.content});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
+        Navigator.pushNamed(context, '/item/' +id.toString());
         //the function of clicked item
       },
       child: Card(

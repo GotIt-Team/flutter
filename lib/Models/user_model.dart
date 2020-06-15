@@ -2,6 +2,6 @@
 class User{
   String name;
   String image;
-
-  User({this.name, this.image});
+  int id;
+  User({this.id,this.name, this.image});
 }
