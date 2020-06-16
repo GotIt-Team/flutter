@@ -9,7 +9,7 @@ class App extends StatefulWidget{
   @override
   State<StatefulWidget> createState() {
     return AppState();
-  } 
+  }
 }
 
 
@@ -23,7 +23,7 @@ class AppState extends State<App> {
       setState(() {});
     });
   }
-  
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -33,11 +33,11 @@ class AppState extends State<App> {
       darkTheme: AppTheme.darkTheme,
       themeMode: AppTheme.currentMode,
       home: TapsController(numperOfTabs,appBarTitle),
-           // routes:
-            //{  '/admin': (BuildContext context) =>,
-              //'/home': (BuildContext context) => , 
-            //}
-               onGenerateRoute: (RouteSettings settings) {
+      // routes:
+      //{  '/admin': (BuildContext context) =>,
+      //'/home': (BuildContext context) => ,
+      //}
+      onGenerateRoute: (RouteSettings settings) {
         final List<String> pathElements = settings.name.split('/');
         if (pathElements[0] != '') {
           return null;
@@ -48,10 +48,9 @@ class AppState extends State<App> {
             builder: (BuildContext context) => PostInnerView(id:id),
           );
         }
-        
+
         return null;
       },
-          );
-        }
-      }
-
+    );
+  }
+}

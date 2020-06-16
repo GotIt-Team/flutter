@@ -1,7 +1,7 @@
 
 
 
-import 'package:gotit/Models/user_model.dart';
+import 'package:gotit/Models/user_model1.dart';
 
 import 'comment_model.dart';
 

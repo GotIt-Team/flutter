@@ -1,6 +1,6 @@
 
 import 'package:flutter/cupertino.dart';
-import 'package:gotit/Models/user_model.dart';
+import 'package:gotit/Models/user_model1.dart';
 
 class Item{
   User user;
