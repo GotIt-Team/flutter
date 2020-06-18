@@ -1,0 +1,4 @@
+enum UserType {
+  regular,
+  organization
+}

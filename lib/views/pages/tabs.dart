@@ -19,11 +19,11 @@ class TapsController extends StatelessWidget {
               icon: Icon(Icons.home),
             ),
             Tab(
-              icon: Icon(Icons.info),
+              icon: Icon(Icons.notifications),
             )
           ]),
         ),
-        body: TabBarView(children: <Widget>[HomeTap(),Notifications()]),
+        body: TabBarView(children: <Widget>[HomeTap(), Notifications()]),
       ),
     );
   }

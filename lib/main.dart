@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gotit/app_theme.dart';
+import 'package:gotit/views/pages/login_view.dart';
 import 'package:gotit/views/pages/post_inner_view.dart';
 import 'package:gotit/views/pages/tabs.dart';
 
@@ -33,10 +34,9 @@ class AppState extends State<App> {
       darkTheme: AppTheme.darkTheme,
       themeMode: AppTheme.currentMode,
       home: TapsController(numperOfTabs,appBarTitle),
-      // routes:
-      //{  '/admin': (BuildContext context) =>,
-      //'/home': (BuildContext context) => ,
-      //}
+      routes: {
+        "/home": (BuildContext context) => TapsController(numperOfTabs, appBarTitle)
+      },
       onGenerateRoute: (RouteSettings settings) {
         final List<String> pathElements = settings.name.split('/');
         if (pathElements[0] != '') {

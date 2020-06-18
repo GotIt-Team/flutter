@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:dropdown_formfield/dropdown_formfield.dart';
 
 class ThemeHandler with ChangeNotifier {
   bool _isDark = false;
@@ -19,10 +18,10 @@ class AppTheme {
   static ThemeHandler themeHandler = ThemeHandler();
 
   static final ThemeData lightTheme = ThemeData(
-    backgroundColor: Colors.white,
-    scaffoldBackgroundColor: Colors.white,
+    backgroundColor: Color.fromARGB(255, 209, 208, 181),
+    scaffoldBackgroundColor: Color.fromARGB(255, 209, 208, 181),
     appBarTheme: AppBarTheme(
-      color: Colors.blue,
+      color: Color.fromARGB(255, 69, 140, 158),
       iconTheme: IconThemeData(
         color: Colors.white,
       ),
@@ -42,6 +41,9 @@ class AppTheme {
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.all(Radius.circular(5)),
         borderSide: BorderSide(color: Colors.blue)
+      ),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.all(Radius.circular(5))
       )
     ),
     textTheme: TextTheme(
@@ -54,7 +56,6 @@ class AppTheme {
         fontSize: 18.0,
       ),
     ),
-
   );
 
   static final ThemeData darkTheme = ThemeData(
