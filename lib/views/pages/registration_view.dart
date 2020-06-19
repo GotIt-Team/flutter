@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:dropdown_formfield/dropdown_formfield.dart';
 import 'package:gotit/presenters/registration_presenter.dart';
 
 class RegistrationPage extends StatelessWidget {
@@ -10,7 +9,7 @@ class RegistrationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double valuePadding = MediaQuery.of(context).size.height * 0.01;
-    double valuePadding2 = MediaQuery.of(context).size.height * 0.02;
+    //double valuePadding2 = MediaQuery.of(context).size.height * 0.02;
     return Scaffold(
       appBar: AppBar(
         title: Text('Registration'),
@@ -82,27 +81,6 @@ class RegistrationPage extends StatelessWidget {
                 ),
                 validator: _registerationPresenter.validatePhone,
                 onSaved: _registerationPresenter.setPhoneNumber,
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.fromLTRB(valuePadding2, valuePadding, valuePadding2, valuePadding),
-              child: DropDownFormField(
-                titleText: 'City',
-                hintText: 'Please enter your City',
-                value: _registerationPresenter.userRegistration.city,
-                onSaved: _registerationPresenter.setCity,
-                dataSource: [
-                  {
-                    "display": "Fayoum",
-                    "value": "Fayoum",
-                  },
-                  {
-                    "display": "Giza",
-                    "value": "Giza",
-                  },
-                ],
-                textField: 'display',
-                valueField: 'value',
               ),
             ),
             Padding(

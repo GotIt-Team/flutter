@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gotit/views/pages/home_tab.dart';
-import 'package:gotit/views/pages/notifications.dart';
+import 'package:gotit/views/pages/notifications_tab.dart';
 
 class TapsController extends StatelessWidget {
   final int tabsLength;
@@ -23,7 +23,7 @@ class TapsController extends StatelessWidget {
             )
           ]),
         ),
-        body: TabBarView(children: <Widget>[HomeTap(), Notifications()]),
+        body: TabBarView(children: <Widget>[HomeTap(), NotificationsTab()]),
       ),
     );
   }

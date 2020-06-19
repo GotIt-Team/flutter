@@ -15,47 +15,66 @@ class ThemeHandler with ChangeNotifier {
 }
 
 class AppTheme {
+  static final Color _lightPrimary = Color.fromARGB(255, 59, 117, 133);
+  static final Color _lightSecondary = Color.fromARGB(255, 69, 140, 158);
+  static final Color _lightBackground = Color.fromARGB(255, 209, 208, 181);
+  static final Color _lightSubtitle = Color.fromARGB(255, 189, 195, 199);
+
   static ThemeHandler themeHandler = ThemeHandler();
 
   static final ThemeData lightTheme = ThemeData(
-    backgroundColor: Color.fromARGB(255, 209, 208, 181),
-    scaffoldBackgroundColor: Color.fromARGB(255, 209, 208, 181),
+    primaryColor: _lightPrimary,
+    primaryColorLight: _lightPrimary,
     appBarTheme: AppBarTheme(
-      color: Color.fromARGB(255, 69, 140, 158),
+      color: _lightSecondary,
       iconTheme: IconThemeData(
         color: Colors.white,
       ),
     ),
+    
+    backgroundColor: _lightBackground,
+    scaffoldBackgroundColor: _lightBackground,
+    
     iconTheme: IconThemeData(
-      color: Colors.white54,
+      color: Colors.white,
     ),
+    
     buttonTheme: ButtonThemeData(
-      buttonColor: Colors.red, //text on button
-      hoverColor: Colors.blue,
+      buttonColor: _lightPrimary, //text on button
+      hoverColor: _lightSecondary,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15)
       ),
-      textTheme: ButtonTextTheme.accent
+      textTheme: ButtonTextTheme.primary
     ),
+    
     inputDecorationTheme: InputDecorationTheme(
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.all(Radius.circular(5)),
-        borderSide: BorderSide(color: Colors.blue)
+        borderSide: BorderSide(color: Colors.black)
       ),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.all(Radius.circular(5))
       )
     ),
+
+    fontFamily: 'Roboto',
+    
     textTheme: TextTheme(
       title: TextStyle(
-        color: Colors.white,
+        color: Colors.black,
         fontSize: 20.0,
       ),
+      button: TextStyle(
+        color: Colors.black,
+        fontSize: 16.0
+      ),
       subtitle: TextStyle(
-        color: Colors.white70,
+        color: _lightSubtitle,
         fontSize: 18.0,
       ),
     ),
+    
   );
 
   static final ThemeData darkTheme = ThemeData(

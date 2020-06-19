@@ -18,7 +18,7 @@ class Http {
       kReleaseMode ? _pythonProductionUrl : _pythonDebugUrl;
   }
 
-  static Result<TReponse> _fail<TReponse>(String exception){
+  static Result<TResponse> _fail<TResponse>(String exception){
     return Result(data: null, count: null, message: exception, isSucceeded: false);
   }
 
@@ -58,7 +58,7 @@ class Http {
     return headers;
   }
 
-  static Future<Result<TReponse>> send<TReponse>({@required String endpointUrl, String method='GET', Map<String, dynamic> headers, Map<String, dynamic> queryParameters, Object body, bool isCsharp = true, dynamic Function(dynamic) mapper}) async{
+  static Future<Result<TResponse>> send<TResponse>({@required String endpointUrl, String method='GET', Map<String, dynamic> headers, Map<String, dynamic> queryParameters, Object body, bool isCsharp = true, dynamic Function(dynamic) mapper}) async{
     try {
       // set token
       headers = await _setToken(headers);

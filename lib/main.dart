@@ -33,7 +33,7 @@ class AppState extends State<App> {
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
       themeMode: AppTheme.currentMode,
-      home: TapsController(numperOfTabs,appBarTitle),
+      home: TapsController(numperOfTabs, appBarTitle),
       routes: {
         "/home": (BuildContext context) => TapsController(numperOfTabs, appBarTitle)
       },
