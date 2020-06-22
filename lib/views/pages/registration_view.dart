@@ -31,7 +31,7 @@ class RegistrationPage extends StatelessWidget {
 
       body: DialogBox.dialog(
           context: context,
-          title: 'Registration',
+          title: Text('Registration'),
           content: Form(
             key: formkey,
             child: Column(

@@ -18,7 +18,7 @@ class Http {
       kReleaseMode ? _pythonProductionUrl : _pythonDebugUrl;
   }
 
-  static Result<TReponse> _fail<TReponse>(String exception){
+  static Result<TResponse> _fail<TResponse>(String exception){
     return Result(data: null, count: null, message: exception, isSucceeded: false);
   }
 

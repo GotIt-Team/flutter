@@ -32,11 +32,10 @@ class AppState extends State<App> {
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
       themeMode: AppTheme.currentMode,
-      home: TapsController(numperOfTabs,appBarTitle),
-      // routes:
-      //{  '/admin': (BuildContext context) =>,
-      //'/home': (BuildContext context) => ,
-      //}
+      home: TapsController(numperOfTabs, appBarTitle),
+      routes: {
+        "/home": (BuildContext context) => TapsController(numperOfTabs, appBarTitle)
+      },
       onGenerateRoute: (RouteSettings settings) {
         final List<String> pathElements = settings.name.split('/');
         if (pathElements[0] != '') {

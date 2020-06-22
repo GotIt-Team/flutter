@@ -28,58 +28,82 @@ class DialogBox {
     return result;
   }
 
-  static Widget dialog({@required BuildContext context, @required String title, Widget content, DialogButtons dialogButton = DialogButtons.ok, void Function(DialogResult) onPress, bool isPopup=false}) {
-    return Container(
-      child: AlertDialog(
-        // redius shape
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0)
-        ),
-        // remove default padding
-        titlePadding: EdgeInsets.all(0),
-        // add AppBar to show title
-        title: AppBar(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(10),
-              topRight: Radius.circular(10)
-            )
+  static Widget dialog({@required BuildContext context, @required Widget title, Widget content, DialogButtons dialogButton = DialogButtons.ok, void Function(DialogResult) onPress, bool isPopup=false}) {
+    return Card(
+      margin: EdgeInsets.only(
+        left: 15,
+        right: 15
+      ),
+      elevation: 10,
+      child: Center(
+        child: Container(
+          padding: EdgeInsets.all(0),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(5),
+            
           ),
-          automaticallyImplyLeading: false,
-          title: Text(title),
-          actions: isPopup ? [
-            IconButton(
-              icon: Icon(Icons.close),
-              onPressed: () {
-                Navigator.pop(context, DialogResult.close);
-              },
-            )
-          ] : []
-        ),
-        // Dialog Content 
-        content: SingleChildScrollView(
-          child: Center(
-            child: content
+          child: Column(
+            children: [
+              AppBar(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(5),
+                    topRight: Radius.circular(5)
+                  )
+                ),
+                automaticallyImplyLeading: false,
+                title: title,
+                actions: isPopup ? [
+                  IconButton(
+                    icon: Icon(Icons.close),
+                    onPressed: () {
+                      Navigator.pop(context, DialogResult.close);
+                    },
+                  )
+                ] : []
+              ),
+              // Dialog Content 
+              Padding(
+                padding: EdgeInsets.only(
+                  top: 24,
+                  bottom: 24,
+                  left: 20,
+                  right: 20
+                ),
+                child: SingleChildScrollView(
+                  child: Center(
+                    child: content
+                  ),
+                ),
+              ),
+              Row(
+                textDirection: TextDirection.rtl,
+                children: _buttons(context, dialogButton, isPopup, onPress),
+              )
+            ],
           ),
         ),
-        actions: _buttons(context, dialogButton, isPopup, onPress)
       ),
     );
   }
 
-  static Future<DialogResult> show({@required BuildContext context, @required String title, Widget content, DialogButtons dialogButton = DialogButtons.ok}) async{
-    return showDialog<DialogResult>(
+  static Future<DialogResult> show({@required BuildContext context, @required Widget title, Widget content, DialogButtons dialogButton = DialogButtons.ok}) async{
+    return showGeneralDialog(
       context: context,
-      barrierDismissible: false, // user must tap button!
-      builder: (BuildContext context) {
+      barrierDismissible: true,
+      barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
+      barrierColor: Colors.black45,
+      transitionDuration: const Duration(milliseconds: 200),
+      pageBuilder: (BuildContext buildContext, Animation animation, Animation secondaryAnimation) {
         return dialog(
-          context: context, 
-          title: title,
-          content: content,
-          dialogButton: dialogButton,
+          context: buildContext, 
+          title: title, 
+          content: content, 
+          dialogButton: dialogButton, 
           isPopup: true
         );
-      },
+      }
     );
   }
 }

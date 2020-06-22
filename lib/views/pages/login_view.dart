@@ -17,7 +17,7 @@ class LoginPage extends StatelessWidget{
     return Scaffold(
       body: DialogBox.dialog(
         context: context, 
-        title: 'Login',
+        title: Text('Login'),
         content: Form(
           key: formkey,
           child: Column(
@@ -26,26 +26,27 @@ class LoginPage extends StatelessWidget{
               Padding(padding: EdgeInsets.all(valuePadding),child: TextFormField(
                 keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(
-                  icon: Icon(Icons.person),
                   labelText: 'Email',
                   hintText: ('Enter Your Email'),
                 ),
                 validator: loginPresenter.validateEmail,
                 onSaved: loginPresenter.setEmail,
-              ),),
-              Padding(padding: EdgeInsets.all(valuePadding),child: TextFormField(
+              ),
+            ),
+            Padding(padding: EdgeInsets.all(valuePadding),
+              child: TextFormField(
                 keyboardType: TextInputType.text,
                 obscureText: true,
                 decoration: InputDecoration(
-                  icon: Icon(Icons.vpn_key),
                   labelText: 'Password',
                   hintText: ('Enter Your Password'),
                 ),
                 validator:loginPresenter.validatePassword,
                 onSaved:loginPresenter.setPassword,
-              ),),
-            ],
-          ),
+              ),
+            ),
+          ],
+        ),
         ),
         dialogButton: DialogButtons.ok_cancel,
         onPress: (DialogResult result){
@@ -55,6 +56,7 @@ class LoginPage extends StatelessWidget{
           {  loginPresenter.login();}
           else{ Navigator.pop(context);}
         }
+        
       ),
 
     );
