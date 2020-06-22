@@ -4,18 +4,17 @@ import 'package:gotit/enums/dialog_buttons_enum.dart';
 import 'package:gotit/enums/dialog_result_enum.dart';
 import 'package:gotit/presenters/login_presenter.dart';
 import 'package:gotit/views/widgets/alert_dialog.dart';
+import 'package:gotit/helpers.dart';
 
 class LoginPage extends StatelessWidget{
   final LoginPresenter loginPresenter = LoginPresenter();
   final GlobalKey<FormState> formkey = GlobalKey<FormState>();
 
+
   @override
   Widget build(BuildContext context) {
     double valuePadding = MediaQuery.of(context).size.height * 0.01 ;
     return Scaffold(
-      appBar: AppBar(
-        title:Text('Login')
-      ),
       body: DialogBox.dialog(
         context: context, 
         title: 'Login',
@@ -50,7 +49,11 @@ class LoginPage extends StatelessWidget{
         ),
         dialogButton: DialogButtons.ok_cancel,
         onPress: (DialogResult result){
-          
+          String buttonStringResult = Helpers.getStringFromEnum(result);
+          print(buttonStringResult);
+          if(buttonStringResult == 'ok')
+          {  loginPresenter.login();}
+          else{ Navigator.pop(context);}
         }
       ),
 

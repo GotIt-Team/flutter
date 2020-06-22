@@ -6,7 +6,7 @@ import 'package:dio/dio.dart';
 import 'package:gotit/services/shared_preferences_service.dart';
 
 class Http {
-  static final String _csharpDebugUrl = "localhost:54375";
+  static final String _csharpDebugUrl = "localhost:5000";
   static final String _csharpProductionUrl = "";
   static final String _pythonDebugUrl = "localhost:5000";
   static final String _pythonProductionUrl = "";
@@ -58,7 +58,7 @@ class Http {
     return headers;
   }
 
-  static Future<Result<TReponse>> send<TReponse>({@required String endpointUrl, String method='GET', Map<String, dynamic> headers, Map<String, dynamic> queryParameters, Object body, bool isCsharp = true, dynamic Function(dynamic) mapper}) async{
+  static Future<Result<TResponse>> send<TResponse>({@required String endpointUrl, String method='GET', Map<String, dynamic> headers, Map<String, dynamic> queryParameters, Object body, bool isCsharp = true, dynamic Function(dynamic) mapper}) async{
     try {
       // set token
       headers = await _setToken(headers);

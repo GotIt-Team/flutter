@@ -14,12 +14,12 @@ class LandingPage extends StatelessWidget{
               Text('GOT IT',style:TextStyle(color: Colors.blue[100],fontSize: 50,fontWeight:FontWeight.bold, ),),
               FlatButton(
                 child: Text('Registration'),
-                onPressed: () {Navigator.pushNamed(context, 'RegistrationView');},
+                onPressed: () {Navigator.pushNamed(context, 'registration_view');},
                 //color: Colors.white,
               ),
               FlatButton(
                 child: Text('Log in'),
-                onPressed: () {Navigator.pushNamed(context, 'LoginView');},
+                onPressed: () {Navigator.pushNamed(context, 'login_view');},
               ),
               Row(
                 mainAxisAlignment:MainAxisAlignment.center,

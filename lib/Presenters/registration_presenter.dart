@@ -1,6 +1,9 @@
 
 import 'package:gotit/enums/gender_enum.dart';
+import 'package:gotit/helpers.dart';
 import 'package:gotit/models/user_registration.dart';
+import 'package:gotit/Services/http_service.dart';
+
 
 class RegisterationPresenter {
   final UserRegistration userRegistration = UserRegistration();
@@ -33,8 +36,8 @@ class RegisterationPresenter {
     userRegistration.country = country;
   }
 
-  void setGender(Gender gender) {
-    userRegistration.gender = gender;
+  void setGender(String gender) {
+    userRegistration.gender = Helpers.getEnumFromString(Gender.values, gender);
   }
 
   //Valdiation Functions of form
@@ -61,7 +64,7 @@ class RegisterationPresenter {
   }
 
   String validateRepeatePassword(String password) {
-    if (password != userRegistration.password) {
+    if (password.isEmpty || password.length < 8) {
       return "The password not Identical!";
     }
     return null;
@@ -93,5 +96,15 @@ class RegisterationPresenter {
       return "Please Enter male Or female";
     }
     return null;
+  }
+
+ registrationRequest()async{
+   var result = await Http.send<bool>(
+        endpointUrl: 'user/sign-up',
+        method: "POST",
+        body: userRegistration,
+    );
+      print(result.data);
+
   }
 }

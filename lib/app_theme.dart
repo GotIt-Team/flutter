@@ -37,6 +37,7 @@ class AppTheme {
       ),
       textTheme: ButtonTextTheme.accent
     ),
+
     inputDecorationTheme: InputDecorationTheme(
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.all(Radius.circular(5)),
@@ -56,6 +57,7 @@ class AppTheme {
         fontSize: 18.0,
       ),
     ),
+
   );
 
   static final ThemeData darkTheme = ThemeData(

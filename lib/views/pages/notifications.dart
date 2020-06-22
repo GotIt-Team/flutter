@@ -14,8 +14,8 @@ class Notifications extends StatelessWidget{
             endpointUrl: 'user/sign-in',
             method: "POST",
             body: {
-              'email': 'a@b.c',
-              'password': 'P@\$\$w0rd'
+              'email': 'asmaakhaled603@gmail.com',
+              'password': '123456789'
             },
             mapper: (data) => UserToken.fromJson(data)
           );

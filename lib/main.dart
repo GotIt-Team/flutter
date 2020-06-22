@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:gotit/app_theme.dart';
-import 'package:gotit/views/pages/login_view.dart';
 import 'package:gotit/views/pages/post_inner_view.dart';
 import 'package:gotit/views/pages/tabs.dart';
 
@@ -15,7 +14,7 @@ class App extends StatefulWidget{
 
 
 class AppState extends State<App> {
-  int numperOfTabs=2;
+  int numperOfTabs=3;
   String appBarTitle='home';
   @override
   void initState(){
@@ -34,9 +33,10 @@ class AppState extends State<App> {
       darkTheme: AppTheme.darkTheme,
       themeMode: AppTheme.currentMode,
       home: TapsController(numperOfTabs,appBarTitle),
-      routes: {
-        "/home": (BuildContext context) => TapsController(numperOfTabs, appBarTitle)
-      },
+      // routes:
+      //{  '/admin': (BuildContext context) =>,
+      //'/home': (BuildContext context) => ,
+      //}
       onGenerateRoute: (RouteSettings settings) {
         final List<String> pathElements = settings.name.split('/');
         if (pathElements[0] != '') {
