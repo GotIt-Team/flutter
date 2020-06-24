@@ -1,53 +1,64 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gotit/helpers.dart';
+import 'package:intl/intl.dart';
 
 class ItemCard extends StatelessWidget {
   final String userName;
   final String userImage;
-  final String creationDate;
+  final DateTime creationDate;
   final String image;
   final String content;
   final int id;
+  final bool isFirst;
 
-  ItemCard({@required this.id,this.userName, this.userImage, this.creationDate, this.image, this.content});
+  ItemCard({@required this.id,this.userName, this.userImage, this.creationDate, this.image, this.content, this.isFirst});
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        Navigator.pushNamed(context, '/item/' +id.toString());
-        //the function of clicked item
-      },
-      child: Card(
-        child: Column(
-          children: [
-            ListTile(
-              //title and subhead
-              title: Text(userName),
-              subtitle: Text(creationDate),
-              //profile icon
-              leading: CircleAvatar(
-                backgroundImage: AssetImage(userImage),
-              )
-            ),
-            //image of the item itself
-            Container(
-              padding: const EdgeInsets.only(right: 5, left: 5),
-              child: Image.asset(
-                image,
-                height: 150,
-                width: 350,
-                fit: BoxFit.fill,
+    return Container(
+      padding: isFirst ? EdgeInsets.only(top: 15, bottom: 15) : EdgeInsets.only(bottom: 15),
+      child: InkWell(
+        onTap: () {
+          Navigator.pushNamed(context, '/item-details', arguments: id);
+        },
+        child: Card(
+          margin: EdgeInsets.only(),
+          child: Column(
+            children: [
+              ListTile(
+                //title and subhead
+                title: Text(userName),
+                subtitle: Text(DateFormat().format(creationDate)),
+                //profile icon
+                leading: CircleAvatar(
+                  backgroundImage: AssetImage('assets/images/Sheka.jpg'),
+                )
               ),
-            ),
-            //description of the item
-            Container(
-              padding: EdgeInsets.all(5),
-              child: Text(content))
-          ],
-          crossAxisAlignment: CrossAxisAlignment.start,
+              //image of the item itself
+              Container(
+                height: 200,
+                child: SizedBox(
+                  height: 200,
+                  width: MediaQuery.of(context).size.width,
+                  child: Image(
+                    image: AssetImage('assets/images/Sheka.jpg')
+                  ),
+                )
+              ),
+              //description of the item
+              Container(
+                padding: EdgeInsets.all(15),
+                child: Text(
+                  Helpers.truncateWithEllipsis(content, 90),
+                  style: TextStyle(fontSize: 18)
+                )
+              )
+            ],
+            crossAxisAlignment: CrossAxisAlignment.start,
+          )
         )
-      )
+      ),
     );
   }
 }

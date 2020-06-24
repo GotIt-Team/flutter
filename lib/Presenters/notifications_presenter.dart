@@ -1,23 +1,26 @@
 import 'package:gotit/models/notifications_model.dart';
+import 'package:gotit/services/http_service.dart';
 
 class NotificationsPresenter{
+  List<Notification> _notifications = [];
+  
+  Future<void> getNotifications(int pageNo, int pageSize) async {
+    var result = await Http.send<List<Notification>>(
+      endpointUrl: 'notification',
+      queryParameters: {
+        'pageNo': pageNo,
+        'pageSize': pageSize
+      },
+      mapper: (dynamic data) => List<Notification>.generate(data.length, (index) => Notification.fromJson(data[index]))
+    );
 
+    if(result.isSucceeded){
+      _notifications = result.data;
+    }
+  }
 
-  List<Notification> getNotifications(){
-    List<Notification> notifications = new List<Notification>();
-    notifications.add( new Notification(title: "This is the title of the notification 1",time: "09.55 AM",icon: "assets/images/Sheka.jpg"));
-    notifications.add( new Notification(title: "This is the title of the notification 2",time: "09.55 AM",icon: "assets/images/Sheka.jpg"));
-    notifications.add( new Notification(title: "This is the title of the notification 3",time: "09.55 AM",icon: "assets/images/Sheka.jpg"));
-    notifications.add( new Notification(title: "This is the title of the notification 4",time: "09.55 AM",icon: "assets/images/Sheka.jpg"));
-    notifications.add( new Notification(title: "This is the title of the notification 5",time: "09.55 AM",icon: "assets/images/Sheka.jpg"));
-    notifications.add( new Notification(title: "This is the title of the notification 6",time: "09.55 AM",icon: "assets/images/Sheka.jpg"));
-    notifications.add( new Notification(title: "This is the title of the notification 7",time: "09.55 AM",icon: "assets/images/Sheka.jpg"));
-    notifications.add( new Notification(title: "This is the title of the notification 8",time: "09.55 AM",icon: "assets/images/Sheka.jpg"));
-    notifications.add( new Notification(title: "This is the title of the notification 9",time: "09.55 AM",icon: "assets/images/Sheka.jpg"));
-    notifications.add( new Notification(title: "This is the title of the notification 10",time: "09.55 AM",icon: "assets/images/Sheka.jpg"));
-
-    
-    return notifications;
+  List<Notification> get notifications {
+    return _notifications;
   }
   
 }

@@ -1,4 +1,4 @@
-import 'package:gotit/Models/chat_user_model.dart';
+import 'package:gotit/models/chat_user_model.dart';
 
 class Message{
   final ChatUser sender;
@@ -15,49 +15,49 @@ class Message{
 }
 List<Message> messageList = [
   Message (
-    sender: DrRasha,
+    sender: drRasha,
     time: '4.30',
     text: 'Hi Graduation Project Team',
     unread: true,
   ),
   Message (
-    sender: DrBassma,
+    sender: drBassma,
     time: '4.31',
     text: 'Hi Graduation Project Team',
     unread: false,
   ),
   Message (
-    sender: Badr,
+    sender: badr,
     time: '4.31',
     text: 'Hi Graduation Project Team',
     unread: false,
   ),
   Message (
-    sender: Kyrolls,
+    sender: kyrolls,
     time: '4.31',
     text: 'Hi Graduation Project Team',
     unread: true,
   ),
   Message (
-    sender: Abdalrahman,
+    sender: abdalrahman,
     time: '4.31',
     text: 'Hi Graduation Project Team',
     unread: true,
   ),
   Message (
-    sender: Hassan,
+    sender: hassan,
     time: '4.31',
     text: 'Hi Graduation Project Team',
     unread: false,
   ),
   Message (
-    sender: Asmaa,
+    sender: asmaa,
     time: '4.31',
     text: 'Hi Graduation Project Team',
     unread: false,
   ),
   Message (
-    sender: Youmna,
+    sender: youmna,
     time: '4.31',
     text: 'Hi Graduation Project Team',
     unread: false,
@@ -65,49 +65,49 @@ List<Message> messageList = [
 ];
 List<Message> messages = [
   Message (
-    sender: DrRasha,
+    sender: drRasha,
     time: '4.30',
     text: 'Hi Graduation Project Team',
     unread: true,
   ),
   Message (
-    sender: Asmaa,
+    sender: asmaa,
     time: '4.31',
     text: 'Hi Graduation Project Team',
     unread: false,
   ),
   Message (
-    sender: DrRasha,
+    sender: drRasha,
     time: '4.31',
     text: 'Hi Graduation Project Team',
     unread: false,
   ),
   Message (
-    sender: DrRasha,
+    sender: drRasha,
     time: '4.31',
     text: 'Hi Graduation Project Team',
     unread: true,
   ),
   Message (
-    sender: Asmaa,
+    sender: asmaa,
     time: '4.31',
     text: 'Hi Graduation Project Team',
     unread: true,
   ),
   Message (
-    sender: DrRasha,
+    sender: drRasha,
     time: '4.31',
     text: 'Hi Graduation Project Team',
     unread: false,
   ),
   Message (
-    sender: Asmaa,
+    sender: asmaa,
     time: '4.31',
     text: 'Hi Graduation Project Team',
     unread: false,
   ),
   Message (
-    sender: DrRasha,
+    sender: drRasha,
     time: '4.31',
     text: 'Hi Graduation Project Team',
     unread: false,

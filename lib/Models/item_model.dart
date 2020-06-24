@@ -1,14 +1,23 @@
 
-import 'package:flutter/cupertino.dart';
-import 'package:gotit/Models/user_model1.dart';
+import 'package:gotit/enums/item_type.dart';
+import 'package:gotit/models/user_model.dart';
 
 class Item{
-  User user;
-  String content;
-  String creationData;
-  String image;
   int id;
+  String content;
+  DateTime creationDate;
+  String image;
+  ItemType type;
+  User user;
   
-  Item({@required this.id,this.user,this.content,this.creationData,this.image,});
+  Item({this.id, this.content, this.creationDate, this.image, this.type, this.user});
 
+  Item.fromJson(dynamic data) {
+    id = data['id'];
+    content = data['content'];
+    creationDate = DateTime.parse(data['creationDate']);
+    image = data['image'];
+    type = ItemType.values[data['type'] - 1];
+    user = User.fromJsom(data['user']);
+  }
 }

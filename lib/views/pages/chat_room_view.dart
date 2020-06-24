@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gotit/Models/Message_model.dart';
-import 'package:gotit/Models/chat_user_model.dart';
+import 'package:gotit/models/Message_model.dart';
+import 'package:gotit/models/chat_user_model.dart';
 
 
 class ChatRoomPage extends StatefulWidget{
@@ -53,23 +53,25 @@ class ChatRoomState extends State<ChatRoomPage>{
                   Container(
 
                     padding: EdgeInsets.all(2),
-                    decoration:true? BoxDecoration(
+                    /////////////////////////// removed condition ////////////////////
+                    decoration: BoxDecoration(
                       borderRadius:BorderRadius.all(Radius.circular(40)) ,
                       border: Border.all(
                         width: 2,
                         color: Theme.of(context).primaryColor,
                       ),
 
-                    ):BoxDecoration(
-                        shape: BoxShape.circle,
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.5),
-                            spreadRadius: 2,
-                            blurRadius: 5,
-                          ),
-                        ]
                     ),
+                    // BoxDecoration(
+                    //     shape: BoxShape.circle,
+                    //     boxShadow: [
+                    //       BoxShadow(
+                    //         color: Colors.grey.withOpacity(0.5),
+                    //         spreadRadius: 2,
+                    //         blurRadius: 5,
+                    //       ),
+                    //     ]
+                    // ),
                     child: CircleAvatar(
                       radius: 15,
                       backgroundImage: AssetImage(widget.userChat.image),
@@ -193,7 +195,7 @@ class ChatRoomState extends State<ChatRoomPage>{
                 itemBuilder:(
                     BuildContext context , int index){
                   final Message message = messages[index];
-                  final bool currentUser =message.sender.id == Asmaa.id;
+                  final bool currentUser =message.sender.id == asmaa.id;
                   final bool isSameUser = previousId == message.sender.id;
                   previousId = message.sender.id;
                   return _chatBubble(message, currentUser,isSameUser);

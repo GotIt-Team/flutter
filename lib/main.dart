@@ -1,11 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:gotit/app_theme.dart';
-import 'package:gotit/views/pages/post_inner_view.dart';
+import 'package:gotit/enums/shared_preferences_enum.dart';
+import 'package:gotit/services/shared_preferences_service.dart';
+import 'package:gotit/views/pages/item_details_view.dart';
+import 'package:gotit/views/pages/landing_view.dart';
+import 'package:gotit/views/pages/login_view.dart';
+import 'package:gotit/views/pages/registration_view.dart';
 import 'package:gotit/views/pages/tabs.dart';
 
-void main() => runApp(App());
+void main() async {
+  String token;
+  if(WidgetsFlutterBinding.ensureInitialized() != null){
+    token = await SharedPreference.getData(key: SharedPreferenceKeys.user_token);
+  }
+  runApp(App(token != null));
+}
 
 class App extends StatefulWidget{
+  final bool isLogged;
+  App(this.isLogged);
   @override
   State<StatefulWidget> createState() {
     return AppState();
@@ -14,8 +27,6 @@ class App extends StatefulWidget{
 
 
 class AppState extends State<App> {
-  int numperOfTabs=3;
-  String appBarTitle='home';
   @override
   void initState(){
     super.initState();
@@ -28,28 +39,17 @@ class AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Got It',
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
       themeMode: AppTheme.currentMode,
-      home: TapsController(numperOfTabs, appBarTitle),
+      home: widget.isLogged ? TabsController() : LandingPage(),
       routes: {
-        "/home": (BuildContext context) => TapsController(numperOfTabs, appBarTitle)
-      },
-      onGenerateRoute: (RouteSettings settings) {
-        final List<String> pathElements = settings.name.split('/');
-        if (pathElements[0] != '') {
-          return null;
-        }
-        if (pathElements[1] == 'item') {
-          final int id = int.parse(pathElements[2]);
-          return MaterialPageRoute<bool>(
-            builder: (BuildContext context) => PostInnerView(id:id),
-          );
-        }
-
-        return null;
-      },
+        "/home": (BuildContext context) => TabsController(),
+        "/item-details": (BuildContext context) => ItemDetailsPage(),
+        "/sign-up": (BuildContext context) => RegistrationPage(),
+        "/sign-in": (BuildContext context) => LoginPage()
+      }
     );
   }
 }

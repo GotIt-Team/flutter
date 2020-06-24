@@ -28,6 +28,7 @@ dependencies:
   material_design_icons_flutter: ^4.0.5345
   dio: ^3.0.8
   shared_preferences: '>=0.5.0+0 <2.0.0'
+  intl: ^0.16.1
 
 dev_dependencies:
   flutter_test:
@@ -53,6 +54,10 @@ flutter:
   - assets/images/Sheka.jpeg
   - assets/images/Sheka.jpg
   - assets/images/logo.png
+  - assets/images/no_notifications.png
+  - assets/images/no_items.png
+  - assets/images/no_messages.png
+  - assets/images/landing.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 

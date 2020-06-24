@@ -1,19 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:gotit/Models/Message_model.dart';
+import 'package:gotit/models/Message_model.dart';
 import 'package:gotit/views/pages/chat_room_view.dart';
 
 class ChatListPage extends StatefulWidget{
-  State<StatefulWidget>createState()=>ChatListState();
+  State<StatefulWidget> createState() => ChatListState();
 }
 
 class ChatListState extends State<ChatListPage>{
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
-
-      body:ListView.builder(
+      body: ListView.builder(
         itemCount: messageList.length,
         itemBuilder: (BuildContext context,int index){
           final Message chatting = messageList[index];

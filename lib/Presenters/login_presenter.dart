@@ -1,16 +1,18 @@
-import 'package:gotit/Models/user_login_model.dart';
+import 'package:flutter/material.dart';
 import 'package:gotit/enums/shared_preferences_enum.dart';
 import 'package:gotit/models/result_model.dart';
+import 'package:gotit/models/user_login_model.dart';
 import 'package:gotit/models/user_token_model.dart';
 import 'package:gotit/services/http_service.dart';
 import 'package:gotit/services/shared_preferences_service.dart';
+import 'package:gotit/views/widgets/progress_dialog.dart';
 
 class LoginPresenter {
   final UserLogin userLogin = UserLogin();
-  String message;
+  Result<UserToken> result;
 
-  Future<Result<UserToken>> login() async {
-    var result = await Http.send<UserToken>(
+  Future<void> _login() async {
+    result = await Http.send<UserToken>(
       endpointUrl: 'user/sign-in',
       method: 'POST',
       body: userLogin,
@@ -22,8 +24,14 @@ class LoginPresenter {
       SharedPreference.setString(key: SharedPreferenceKeys.user_name, value: result.data.name);
       SharedPreference.setString(key: SharedPreferenceKeys.user_picture, value: result.data.picture);
     }
-    
-    return result;
+  }
+
+  Future<void> login(BuildContext context) async {
+    await ProgressDialog.show(
+      context: context,
+      isCircular: false,
+      method: () => _login()
+    );
   }
 
   // setter
@@ -32,18 +40,5 @@ class LoginPresenter {
   }
   void setPassword(String password){
     userLogin.password = password;
-  }
-
-  String validateEmail(String email){
-    if(email.isEmpty){
-      return "Please Enter Your Email";
-    }
-    return null;
-  }
-  String validatePassword(String password){
-    if(password.isEmpty){
-      return "Please Enter Your password";
-    }
-    return null;
   }
 }

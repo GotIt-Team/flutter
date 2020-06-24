@@ -6,7 +6,7 @@ import 'package:dio/dio.dart';
 import 'package:gotit/services/shared_preferences_service.dart';
 
 class Http {
-  static final String _csharpDebugUrl = "localhost:5000";
+  static final String _csharpDebugUrl = "localhost:54375";
   static final String _csharpProductionUrl = "";
   static final String _pythonDebugUrl = "localhost:5000";
   static final String _pythonProductionUrl = "";

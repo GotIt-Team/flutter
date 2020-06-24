@@ -1,8 +1,16 @@
 
-class ContactUsData {
+class ContactUs {
   String email;
-  String message;
   String subject;
+  String message;
 
-  ContactUsData({this.email, this.message, this.subject});
+  ContactUs({this.email, this.subject, this.message});
+
+  Map<String, dynamic> toJson(){
+    return {
+      'email': email,
+      'subject': subject,
+      'message': message
+    };
+  }
 }

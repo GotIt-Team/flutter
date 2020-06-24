@@ -29,59 +29,66 @@ class DialogBox {
   }
 
   static Widget dialog({@required BuildContext context, @required Widget title, Widget content, DialogButtons dialogButton = DialogButtons.ok, void Function(DialogResult) onPress, bool isPopup=false}) {
-    return Card(
-      margin: EdgeInsets.only(
-        left: 15,
-        right: 15
-      ),
-      elevation: 10,
-      child: Center(
-        child: Container(
-          padding: EdgeInsets.all(0),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(5),
-            
-          ),
-          child: Column(
-            children: [
-              AppBar(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(5),
-                    topRight: Radius.circular(5)
-                  )
+    return Center(
+      child: SingleChildScrollView(
+        child: Center(
+          child: Card(
+            margin: EdgeInsets.only(
+              left: 15,
+              right: 15
+            ),
+            elevation: 10,
+            child: Center(
+              child: Container(
+                padding: EdgeInsets.all(0),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5),
                 ),
-                automaticallyImplyLeading: false,
-                title: title,
-                actions: isPopup ? [
-                  IconButton(
-                    icon: Icon(Icons.close),
-                    onPressed: () {
-                      Navigator.pop(context, DialogResult.close);
-                    },
-                  )
-                ] : []
+                child: Column(
+                  children: [
+                    Center(
+                      child: AppBar(
+                        backgroundColor: Theme.of(context).primaryColor,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(4),
+                            topRight: Radius.circular(4)
+                          )
+                        ),
+                        automaticallyImplyLeading: false,
+                        title: title,
+                        actions: isPopup ? [
+                          IconButton(
+                            icon: Icon(Icons.close),
+                            onPressed: () {
+                              Navigator.pop(context, DialogResult.close);
+                            },
+                          )
+                        ] : []
+                      ),
+                    ),
+                    // Dialog Content 
+                    Padding(
+                      padding: EdgeInsets.only(
+                        top: 24,
+                        bottom: 24,
+                        left: 20,
+                        right: 20
+                      ),
+                      child: SingleChildScrollView(
+                        child: Center(
+                          child: content
+                        ),
+                      ),
+                    ),
+                    Row(
+                      textDirection: TextDirection.rtl,
+                      children: _buttons(context, dialogButton, isPopup, onPress),
+                    )
+                  ],
+                ),
               ),
-              // Dialog Content 
-              Padding(
-                padding: EdgeInsets.only(
-                  top: 24,
-                  bottom: 24,
-                  left: 20,
-                  right: 20
-                ),
-                child: SingleChildScrollView(
-                  child: Center(
-                    child: content
-                  ),
-                ),
-              ),
-              Row(
-                textDirection: TextDirection.rtl,
-                children: _buttons(context, dialogButton, isPopup, onPress),
-              )
-            ],
+            ),
           ),
         ),
       ),
@@ -91,7 +98,7 @@ class DialogBox {
   static Future<DialogResult> show({@required BuildContext context, @required Widget title, Widget content, DialogButtons dialogButton = DialogButtons.ok}) async{
     return showGeneralDialog(
       context: context,
-      barrierDismissible: true,
+      barrierDismissible: false,
       barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
       barrierColor: Colors.black45,
       transitionDuration: const Duration(milliseconds: 200),

@@ -6,40 +6,72 @@ class LandingPage extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: new Center(
-          child: new Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              Image.asset("assets/images/logo.png", width:MediaQuery.of(context).size.width*0.7, height:MediaQuery.of(context).size.height*0.5,),
-              Text('GOT IT',style:TextStyle(color: Colors.blue[100],fontSize: 50,fontWeight:FontWeight.bold, ),),
-              FlatButton(
-                child: Text('Registration'),
-                onPressed: () {Navigator.pushNamed(context, 'registration_view');},
-                //color: Colors.white,
-              ),
-              FlatButton(
-                child: Text('Log in'),
-                onPressed: () {Navigator.pushNamed(context, 'login_view');},
-              ),
-              Row(
-                mainAxisAlignment:MainAxisAlignment.center,
-                children: <Widget>[
-                  FlatButton(
-                    child: Icon(MdiIcons.facebook,),
-
-                    onPressed: (){print('facebook');},
+      body: Container(
+        height: MediaQuery.of(context).size.height,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/images/landing.png"),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: SingleChildScrollView(
+          child: Center(
+            child: Column(
+              children: [
+                Image.asset("assets/images/logo.png", height:MediaQuery.of(context).size.height * 0.6),
+                Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.50,
+                    height: MediaQuery.of(context).size.height * 0.07,
+                    child: RaisedButton(
+                      child: Text(
+                        'Log in',
+                        style: TextStyle(fontSize: 22), 
+                      ),
+                      onPressed: () => Navigator.pushNamed(context, '/sign-in')
+                    ),
                   ),
-                  FlatButton(
-                    child: Icon(MdiIcons.google,),
-
-                    onPressed: (){print('Google');},
-                  )
-                ],
-              ),
-            ],
-          )
+                ),
+                Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.50,
+                    height: MediaQuery.of(context).size.height * 0.07,
+                    child: RaisedButton(
+                      child: Text(
+                        'Registration', 
+                        style: TextStyle(fontSize: 22),
+                      ),
+                      onPressed: () =>  Navigator.pushNamed(context, '/sign-up')
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      RaisedButton(
+                        padding: EdgeInsets.all(15),
+                        child: Icon(MdiIcons.facebook, size: 25),
+                        onPressed: () => print('facebook'),
+                        shape: CircleBorder()
+                      ),
+                      RaisedButton(
+                        padding: EdgeInsets.all(15),
+                        child: Icon(MdiIcons.google, size: 25),
+                        onPressed: () => print('Google'),
+                        shape: CircleBorder()
+                      )
+                    ],
+                  ),
+                ),
+              ],
+            )
+          ),
+        ),
       ),
-
     );
   }
 }
