@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class CheckBoxElement extends StatefulWidget {
   final ValueChanged<bool> onChanged;
-  CheckBoxElement({this.onChanged});
+  CheckBoxElement({@required this.onChanged});
   @override
   State<StatefulWidget> createState() => CheckBoxState();
 }

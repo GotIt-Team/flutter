@@ -7,6 +7,7 @@ import 'package:gotit/views/pages/landing_view.dart';
 import 'package:gotit/views/pages/login_view.dart';
 import 'package:gotit/views/pages/registration_view.dart';
 import 'package:gotit/views/pages/tabs.dart';
+import 'package:gotit/views/pages/user_profile_view.dart';
 
 void main() async {
   String token;
@@ -48,7 +49,8 @@ class AppState extends State<App> {
         "/home": (BuildContext context) => TabsController(),
         "/item-details": (BuildContext context) => ItemDetailsPage(),
         "/sign-up": (BuildContext context) => RegistrationPage(),
-        "/sign-in": (BuildContext context) => LoginPage()
+        "/sign-in": (BuildContext context) => LoginPage(),
+        "/profile": (BuildContext context) => UserProfile()
       }
     );
   }

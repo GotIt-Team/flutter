@@ -4,12 +4,13 @@ import 'package:gotit/services/http_service.dart';
 class ItemPresenter{
   List<Item> _items = [];
   
-  Future<void> getItems(int pageNo, int pageSize) async{
+  Future<void> getItems(int pageNo, int pageSize, String endpoint, bool isLost) async{
     var result = await Http.send<List<Item>>(
-      endpointUrl: 'item',
+      endpointUrl: endpoint,
       queryParameters: {
         'pageNo': pageNo,
-        'pageSize': pageSize
+        'pageSize': pageSize,
+        'isLost': isLost
       },
       mapper: (dynamic data) => List<Item>.generate(data.length, (index) => Item.fromJson(data[index]))
     );

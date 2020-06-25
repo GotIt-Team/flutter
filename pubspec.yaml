@@ -54,6 +54,9 @@ flutter:
   - assets/images/Sheka.jpeg
   - assets/images/Sheka.jpg
   - assets/images/logo.png
+  - assets/images/app_bar_logo.png
+  - assets/images/landing_logo.png
+  - assets/images/app_logo.png
   - assets/images/no_notifications.png
   - assets/images/no_items.png
   - assets/images/no_messages.png

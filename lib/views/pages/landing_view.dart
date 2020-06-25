@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
-class LandingPage extends StatelessWidget{
-  
+class LandingPage extends StatelessWidget{  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,7 +17,7 @@ class LandingPage extends StatelessWidget{
           child: Center(
             child: Column(
               children: [
-                Image.asset("assets/images/logo.png", height:MediaQuery.of(context).size.height * 0.6),
+                Image.asset("assets/images/landing_logo.png", height:MediaQuery.of(context).size.height * 0.6),
                 Padding(
                   padding: EdgeInsets.all(8.0),
                   child: SizedBox(
@@ -29,7 +28,10 @@ class LandingPage extends StatelessWidget{
                         'Log in',
                         style: TextStyle(fontSize: 22), 
                       ),
-                      onPressed: () => Navigator.pushNamed(context, '/sign-in')
+                      onPressed: () => Navigator.pushNamed(context, '/sign-in'),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(MediaQuery.of(context).size.width)
+                      ),
                     ),
                   ),
                 ),
@@ -43,7 +45,10 @@ class LandingPage extends StatelessWidget{
                         'Registration', 
                         style: TextStyle(fontSize: 22),
                       ),
-                      onPressed: () =>  Navigator.pushNamed(context, '/sign-up')
+                      onPressed: () => Navigator.pushNamed(context, '/sign-up'),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(MediaQuery.of(context).size.width)
+                      ),
                     ),
                   ),
                 ),

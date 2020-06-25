@@ -8,14 +8,16 @@ class DropdownElement extends StatefulWidget {
   final InputDecoration decoration;
   final Widget icon;
   final double iconSize;
+  final String value;
 
-  DropdownElement({this.items, this.onSaved, this.onChanged, this.decoration, this.icon, this.iconSize});
+  DropdownElement({@required this.items, this.onSaved, this.onChanged, this.decoration, this.icon, this.iconSize, this.value});
   @override
-  State<StatefulWidget> createState() => DropdownState();
+  State<StatefulWidget> createState() => DropdownState(value);
 }
 
 class DropdownState extends State<DropdownElement> {
   String value;
+  DropdownState(this.value);
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +31,9 @@ class DropdownState extends State<DropdownElement> {
         setState(() {
           value = val;
         });
-        widget.onChanged(val);
+        if(widget.onChanged != null) {
+          widget.onChanged(val);
+        }
       },
       items: widget.items
     );

@@ -6,6 +6,8 @@ import 'package:gotit/views/widgets/progress_dialog.dart';
 
 class ItemsTab extends StatefulWidget {
   final ItemPresenter itemPresenter = ItemPresenter();
+  final bool isUserTab, lostItems;
+  ItemsTab({this.isUserTab = false, this.lostItems = true});
   @override
   State<StatefulWidget> createState() => ItemsState();
 }
@@ -19,7 +21,7 @@ class ItemsState extends State<ItemsTab> {
     ProgressDialog.show(
       context: context,
       isCircular: false,
-      method: () => widget.itemPresenter.getItems(pageNo, pageSize).then((value) {
+      method: () =>  widget.itemPresenter.getItems(pageNo, pageSize, widget.isUserTab ? 'user/items' : 'item', widget.lostItems).then((value) {
         setState(() {
           if(widget.itemPresenter.items != null){
             itemCount = widget.itemPresenter.items.length;

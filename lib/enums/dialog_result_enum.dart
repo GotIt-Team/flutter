@@ -6,5 +6,6 @@ enum DialogResult {
   retry,
   ignore,
   yes,
-  no
+  no,
+  update
 }

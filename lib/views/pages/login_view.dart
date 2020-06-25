@@ -46,54 +46,66 @@ class LoginPage extends StatelessWidget{
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
+        width: double.infinity,
+        height: double.infinity,
         decoration: BoxDecoration(
           image: DecorationImage(
             image: AssetImage("assets/images/landing.png"),
             fit: BoxFit.cover,
           ),
         ),
-        child: DialogBox.dialog(
-          context: context, 
-          title: Text('Login'),
-          content: Form(
-            key: formkey,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.only(top: 20),
-                  child: TextFormField(
-                    keyboardType: TextInputType.emailAddress,
-                    decoration: InputDecoration(
-                      icon: Icon(Icons.email),
-                      labelText: 'Email',
-                      hintText: 'example@email.com',
-                    ),
-                    validator: Validator.emailField,
-                    onSaved: loginPresenter.setEmail,
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.1),
+                child: Image.asset("assets/images/app_bar_logo.png"),
+              ),
+              DialogBox.dialog(
+                context: context, 
+                title: Text('Login'),
+                content: Form(
+                  key: formkey,
+                  child: Column(
+                    children: <Widget>[
+                      Padding(
+                        padding: EdgeInsets.only(top: 20),
+                        child: TextFormField(
+                          keyboardType: TextInputType.emailAddress,
+                          decoration: InputDecoration(
+                            icon: Icon(Icons.email),
+                            labelText: 'Email',
+                            hintText: 'example@email.com',
+                          ),
+                          validator: Validator.emailField,
+                          onSaved: loginPresenter.setEmail,
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 20),
+                        child: TextFormField(
+                          keyboardType: TextInputType.text,
+                          obscureText: true,
+                          decoration: InputDecoration(
+                            icon: Icon(Icons.vpn_key),
+                            labelText: 'Password',
+                            hintText: 'Enter your password'
+                          ),
+                          validator: Validator.requiredField,
+                          onSaved: loginPresenter.setPassword,
+                        ),
+                      )
+                    ]
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.only(top: 20),
-                  child: TextFormField(
-                    keyboardType: TextInputType.text,
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      icon: Icon(Icons.vpn_key),
-                      labelText: 'Password',
-                      hintText: 'Enter your password'
-                    ),
-                    validator: Validator.requiredField,
-                    onSaved: loginPresenter.setPassword,
-                  ),
-                )
-              ],
-            ),
-          ),
-          dialogButton: DialogButtons.ok_cancel,
-          onPress: (DialogResult result) => _login(context, result)
-        ),
-      ),
+                dialogButton: DialogButtons.ok_cancel,
+                onPress: (DialogResult result) => _login(context, result)
+              )
+            ]
+          )
+        )
+      )
     );
   }
 }

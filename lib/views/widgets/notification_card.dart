@@ -27,7 +27,8 @@ class NotificationCard extends StatelessWidget {
         },
         child: Card(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(20.0)),
+            borderRadius: BorderRadius.circular(20.0),
+            side: !isSeen ? BorderSide(color: Theme.of(context).primaryColor, width: 2.0) : BorderSide.none,
           ),
           child: Center(
             child: ListTile(
