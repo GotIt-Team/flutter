@@ -8,6 +8,7 @@ import 'package:gotit/views/pages/login_view.dart';
 import 'package:gotit/views/pages/registration_view.dart';
 import 'package:gotit/views/pages/tabs.dart';
 import 'package:gotit/views/pages/user_profile_view.dart';
+import 'package:gotit/views/pages/user_settings_tab.dart';
 
 void main() async {
   String token;
