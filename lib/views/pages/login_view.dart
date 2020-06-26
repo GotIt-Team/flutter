@@ -18,22 +18,24 @@ class LoginPage extends StatelessWidget{
       if(formkey.currentState.validate()){
         formkey.currentState.save();
         loginPresenter.login(context).then((value) {
-          if(!loginPresenter.result.isSucceeded){
-            var resultMessage = Helpers.getEnumFromString(ResultMessage.values, loginPresenter.result.message);
-            DialogBox.show(
-              context: context, 
-              title: Text('Error'),
-              content: Text(
-                StateMessage.get(resultMessage),
-                style: TextStyle(
-                  fontSize: 20
-                ),
-              ),
-              dialogButton: DialogButtons.ok
-            );
-          } else {
+          if(loginPresenter.result.isSucceeded) {
             Navigator.pushNamed(context, "/home");
+            return;
           }
+
+          var resultMessage = Helpers.getEnumFromString(ResultMessage.values, loginPresenter.result.message);
+          DialogBox.show(
+            context: context, 
+            title: Text('Error'),
+            content: Text(
+              StateMessage.get(resultMessage),
+              style: TextStyle(
+                fontSize: 20
+              ),
+              textAlign: TextAlign.center
+            ),
+            dialogButton: DialogButtons.ok
+          );
         });
       }
     } else {

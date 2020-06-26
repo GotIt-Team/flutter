@@ -1,10 +1,14 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:gotit/enums/shared_preferences_enum.dart';
 import 'package:gotit/models/result_model.dart';
 import 'package:gotit/models/user_login_model.dart';
+import 'package:gotit/models/user_model.dart';
 import 'package:gotit/models/user_token_model.dart';
 import 'package:gotit/services/http_service.dart';
 import 'package:gotit/services/shared_preferences_service.dart';
+import 'package:gotit/services/user_data_service.dart';
 import 'package:gotit/views/widgets/progress_dialog.dart';
 
 class LoginPresenter {
@@ -20,9 +24,13 @@ class LoginPresenter {
     );
 
     if(result.isSucceeded) {
-      SharedPreference.setString(key: SharedPreferenceKeys.user_token, value: result.data.token);
-      SharedPreference.setString(key: SharedPreferenceKeys.user_name, value: result.data.name);
-      SharedPreference.setString(key: SharedPreferenceKeys.user_picture, value: result.data.picture);
+      await SharedPreference.setString(key: SharedPreferenceKeys.user_data, value: json.encode(result.data));
+      UserData.copyWith(User(
+        name: result.data.name,
+        address: result.data.address,
+        phoneNumber: result.data.phoneNumber,
+        picture: result.data.picture
+      ), result.data.token);
     }
   }
 

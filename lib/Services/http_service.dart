@@ -1,9 +1,8 @@
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
-import 'package:gotit/enums/shared_preferences_enum.dart';
 import 'package:gotit/models/result_model.dart';
 import 'package:dio/dio.dart';
-import 'package:gotit/services/shared_preferences_service.dart';
+import 'package:gotit/services/user_data_service.dart';
 
 class Http {
   static final String _csharpDebugUrl = "localhost:54375";
@@ -46,7 +45,7 @@ class Http {
 
   static Future<Map<String, String>> _setToken(Map<String, String> headers) async {
     // set Token in header of request
-    var token = await SharedPreference.getData(key: SharedPreferenceKeys.user_token);
+    var token = UserData.token;
     
     if(headers == null)
       headers = {}; 

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:gotit/enums/result_message_enum.dart';
+import 'package:gotit/helpers.dart';
 import 'package:gotit/presenters/contact_us_presenters.dart';
 import 'package:gotit/enums/dialog_buttons_enum.dart';
 import 'package:gotit/enums/dialog_result_enum.dart';
+import 'package:gotit/services/state_message_service.dart';
 import 'package:gotit/services/validator_service.dart';
 import 'package:gotit/views/widgets/alert_dialog.dart';
 
@@ -14,10 +17,18 @@ class ContactUsTab extends StatelessWidget {
       if(formkey.currentState.validate()){
         formkey.currentState.save();
         _contactUsPresenter.sendEmail(context);
+        var flag = !_contactUsPresenter.result.isSucceeded || !_contactUsPresenter.result.data;
+        var resultMessage = Helpers.getEnumFromString(ResultMessage.values, _contactUsPresenter.result.message);
         DialogBox.show(
           context: context, 
-          title: Text('Error'),
-          content: Text(!_contactUsPresenter.result.isSucceeded || !_contactUsPresenter.result.data ? _contactUsPresenter.result.message : 'Mail sent successfuly'),
+          title: Text(flag ? 'Error' : 'Done'),
+          content: Text(
+            StateMessage.get(resultMessage),
+            style: TextStyle(
+              fontSize: 20
+            ),
+            textAlign: TextAlign.center
+          ),
           dialogButton: DialogButtons.ok
         ).then((value) {
           formkey.currentState.reset();

@@ -12,7 +12,7 @@ class ItemPresenter{
         'pageSize': pageSize,
         'isLost': isLost
       },
-      mapper: (dynamic data) => List<Item>.generate(data.length, (index) => Item.fromJson(data[index]))
+      mapper: (dynamic data) => data != null ? List<Item>.generate(data.length, (index) => Item.fromJson(data[index])) : []
     );
 
     if(result.isSucceeded){

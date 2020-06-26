@@ -1,27 +1,32 @@
-import 'package:flutter/material.dart';
-import 'package:gotit/Models/user_model.dart';
-import 'package:gotit/models/result_model.dart';
-import 'package:gotit/Services/http_service.dart';
-import 'package:gotit/views/widgets/progress_dialog.dart';
-import 'package:gotit/enums/shared_preferences_enum.dart';
-import 'package:gotit/services/shared_preferences_service.dart';
+import 'dart:convert';
 
-class UserSettingPresenter {
-  User userSetting ;
-  String theme , language ;
+import 'package:flutter/material.dart';
+import 'package:gotit/enums/shared_preferences_enum.dart';
+import 'package:gotit/models/user_model.dart';
+import 'package:gotit/models/result_model.dart';
+import 'package:gotit/models/user_password_model.dart';
+import 'package:gotit/services/http_service.dart';
+import 'package:gotit/services/shared_preferences_service.dart';
+import 'package:gotit/services/user_data_service.dart';
+import 'package:gotit/views/widgets/progress_dialog.dart';
+
+class UserSettingsPresenter {
+  User user = UserData.user;
+  UserPassword password = UserPassword();
+  String theme , language;
   Result<bool> result;
 
   Future<void> _updateData() async {
-
+    user.id = 0;
     result = await Http.send<bool>(
-      endpointUrl: '',
-      method: "POST",
-      body: userSetting,
+      endpointUrl: 'user/settings',
+      method: "PUT",
+      body: user,
     );
 
-    if(result.isSucceeded) {
-      SharedPreference.setString(key: SharedPreferenceKeys.isDark, value: theme);
-      SharedPreference.setString(key: SharedPreferenceKeys.lang, value:language);
+    if (result.isSucceeded) {
+      SharedPreference.setString(key: SharedPreferenceKeys.user_data, value: json.encode(result.data));
+      UserData.copyWith(user, UserData.token);
     }
   }
 
@@ -33,36 +38,43 @@ class UserSettingPresenter {
     );
   }
 
+  Future<void> _changePassword() async {
+    result = await Http.send<bool>(
+      endpointUrl: 'user/change-password',
+      method: "PUT",
+      body: password,
+    );
+  }
+
+  Future<void> changePassword(BuildContext context) async {
+    await ProgressDialog.show(
+        context: context,
+        isCircular: false,
+        method: () => _changePassword()
+    );
+  }
+
   setName(String name){
-    userSetting.name=name;
+    user.name = name;
   }
 
   setPhoneNumber(String phoneNumber){
-    userSetting.phoneNumber=phoneNumber;
+    user.phoneNumber = phoneNumber;
   }
 
   setAddress(String address){
-    userSetting.address=address;
+    user.address = address;
   }
 
   setOldPassword(String oldPassword){
-    userSetting.oldPassword=oldPassword;
+    password.oldPassword = oldPassword;
   }
 
   setNewPassword(String newPassword){
-    userSetting.newPassword=newPassword;
+    password.newPassword = newPassword;
   }
 
   setRepeatPassword(String repeatPassword){
-    userSetting.repeatPassword=repeatPassword;
+    password.repeatedNewPassword = repeatPassword;
   }
-
-  setTheme (String appTheme){
-    theme = appTheme;
-  }
-
-  setLanguage(String appLanguage){
-    language = appLanguage;
-}
-
 }

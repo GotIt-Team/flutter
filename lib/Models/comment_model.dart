@@ -12,6 +12,6 @@ class Comment{
     id = data['id'];
     date = data['date'];
     content = data['content'];
-    user = User.fromJsom(data['user']);
+    user = User.fromJson(data['user']);
   }
 }

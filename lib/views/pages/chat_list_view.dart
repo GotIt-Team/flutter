@@ -10,8 +10,8 @@ class ChatListPage extends StatefulWidget{
 class ChatListState extends State<ChatListPage>{
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: ListView.builder(
+    return Card(
+      child: ListView.builder(
         itemCount: messageList.length,
         itemBuilder: (BuildContext context,int index){
           final Message chatting = messageList[index];

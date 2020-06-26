@@ -4,6 +4,5 @@ enum SharedPreferenceKeys {
   user_picture,
   isDark,
   lang,
-  isLogged,
-  user_object
+  user_data
 }

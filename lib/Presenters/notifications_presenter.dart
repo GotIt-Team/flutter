@@ -11,7 +11,7 @@ class NotificationsPresenter{
         'pageNo': pageNo,
         'pageSize': pageSize
       },
-      mapper: (dynamic data) => List<Notification>.generate(data.length, (index) => Notification.fromJson(data[index]))
+      mapper: (dynamic data) => data != null ? List<Notification>.generate(data.length, (index) => Notification.fromJson(data[index])) : []
     );
 
     if(result.isSucceeded){
@@ -21,6 +21,13 @@ class NotificationsPresenter{
 
   List<Notification> get notifications {
     return _notifications;
+  }
+
+  Future<void> readNotification(int id) async {
+    Http.send(
+      endpointUrl: '${'notification/$id/read'}',
+      method: 'PUT'
+    );
   }
   
 }

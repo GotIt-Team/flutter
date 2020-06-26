@@ -1,21 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:gotit/app_theme.dart';
-import 'package:gotit/enums/shared_preferences_enum.dart';
-import 'package:gotit/services/shared_preferences_service.dart';
+import 'package:gotit/services/user_data_service.dart';
 import 'package:gotit/views/pages/item_details_view.dart';
 import 'package:gotit/views/pages/landing_view.dart';
 import 'package:gotit/views/pages/login_view.dart';
 import 'package:gotit/views/pages/registration_view.dart';
 import 'package:gotit/views/pages/tabs.dart';
 import 'package:gotit/views/pages/user_profile_view.dart';
-import 'package:gotit/views/pages/user_settings_tab.dart';
 
 void main() async {
-  String token;
   if(WidgetsFlutterBinding.ensureInitialized() != null){
-    token = await SharedPreference.getData(key: SharedPreferenceKeys.user_token);
+    await UserData.init();
   }
-  runApp(App(token != null));
+
+  runApp(App(UserData.isLogged()));
 }
 
 class App extends StatefulWidget{

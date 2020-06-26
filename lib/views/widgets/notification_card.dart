@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gotit/helpers.dart';
+import 'package:gotit/presenters/notifications_presenter.dart';
 import 'package:intl/intl.dart';
 
 class NotificationCard extends StatelessWidget {
@@ -10,6 +11,7 @@ class NotificationCard extends StatelessWidget {
   final bool isSeen;
   final String userName;
   final String userImage;
+  final NotificationsPresenter _notificationPresenter = NotificationsPresenter();
   NotificationCard({this.id, this.link, this.content, this.date, this.isSeen, this.userName, this.userImage});
 
   @override
@@ -23,6 +25,7 @@ class NotificationCard extends StatelessWidget {
       height: 115,
       child: InkWell(
         onTap: () {
+          _notificationPresenter.readNotification(id);
           Navigator.pushNamed(context, link);
         },
         child: Card(

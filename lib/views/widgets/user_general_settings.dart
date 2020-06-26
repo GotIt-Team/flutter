@@ -4,15 +4,14 @@ import 'package:gotit/enums/dialog_buttons_enum.dart';
 import 'package:gotit/enums/dialog_result_enum.dart';
 import 'package:gotit/helpers.dart';
 import 'package:gotit/services/validator_service.dart';
-import 'package:gotit/views/ui_elements/dropdown_element.dart';
 import 'package:gotit/views/widgets/alert_dialog.dart';
-import 'package:gotit/Presenters/user_setting_presenter.dart';
+import 'package:gotit/presenters/user_setting_presenter.dart';
 import 'package:gotit/services/state_message_service.dart';
 import 'package:gotit/enums/result_message_enum.dart';
 
 
 class UserGeneralSettings extends StatelessWidget {
-  UserSettingPresenter _generalSetting = UserSettingPresenter();
+  final UserSettingsPresenter _generalSetting = UserSettingsPresenter();
   final GlobalKey<FormState> formkey = GlobalKey<FormState>();
 
   void _updateGeneralData(BuildContext context, DialogResult result){
@@ -30,13 +29,12 @@ class UserGeneralSettings extends StatelessWidget {
                 style: TextStyle(
                     fontSize: 20
                 ),
+                textAlign: TextAlign.center
               ),
               dialogButton: DialogButtons.ok
           );
         });
       }
-    } else {
-      Navigator.pop(context);
     }
 
   }
@@ -76,6 +74,7 @@ class UserGeneralSettings extends StatelessWidget {
                   ),
                   validator: Validator.notMore32RequiredField,
                   onSaved: _generalSetting.setName,
+                  initialValue: _generalSetting.user.name,
                 ),
               ),
               Padding(
@@ -83,12 +82,13 @@ class UserGeneralSettings extends StatelessWidget {
                 child: TextFormField(
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
-                      icon: Icon(Icons.phone),
-                      labelText: 'Phone number',
-                      hintText: 'Enter your phone number'
+                    icon: Icon(Icons.phone),
+                    labelText: 'Phone number',
+                    hintText: 'Enter your phone number'
                   ),
                   validator: Validator.phoneField,
                   onSaved: _generalSetting.setPhoneNumber,
+                  initialValue: _generalSetting.user.phoneNumber,
                 ),
               ),
               Padding(
@@ -101,63 +101,14 @@ class UserGeneralSettings extends StatelessWidget {
                       hintText: 'Enter your address'
                   ),
                   validator: Validator.notMore32RequiredField,
-                  onSaved:_generalSetting.setAddress ,
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 20),
-                child: DropdownElement(
-                  decoration: InputDecoration(
-                      icon: Icon(Icons.palette),
-                      labelText: 'Theme',
-                      hintText: 'Choose Theme mode'
-                  ),
-                  icon: Icon(Icons.arrow_drop_down),
-                  iconSize: 24,
-                  onSaved: (value){
-                    _generalSetting.setTheme(value);
-                  },
-                  onChanged: (value){
-                    _generalSetting.theme = value;
-                  },
-                  items: ['Light', 'Dark'].map<DropdownMenuItem<String>>((theme) {
-                    var val = Helpers.getStringFromEnum(theme);
-                    return DropdownMenuItem(
-                      value: val,
-                      child: Text(val),
-                    );
-                  }).toList(),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 20),
-                child: DropdownElement(
-                  decoration: InputDecoration(
-                      icon: Icon(Icons.language),
-                      labelText: 'Language',
-                      hintText: 'Choose language'
-                  ),
-                  icon: Icon(Icons.arrow_drop_down),
-                  iconSize: 24,
-                  onSaved: (value){
-                    _generalSetting.setLanguage(value);
-                  },
-                  onChanged: (value){
-                    _generalSetting.language = value;
-                  },
-                  items: ['Arabic', 'English'].map<DropdownMenuItem<String>>((lang) {
-                    var val = Helpers.getStringFromEnum(lang);
-                    return DropdownMenuItem(
-                      value: val,
-                      child: Text(val),
-                    );
-                  }).toList(),
+                  onSaved:_generalSetting.setAddress,
+                  initialValue: _generalSetting.user.address,
                 ),
               )
             ],
           ),
         ),
-        dialogButton: DialogButtons.update_cancle,
+        dialogButton: DialogButtons.update,
         onPress: (DialogResult result) => _updateGeneralData(context, result)
     );
   }

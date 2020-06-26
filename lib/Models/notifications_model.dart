@@ -19,6 +19,6 @@ class Notification{
     date = data['date'] != null ? DateTime.tryParse(data['date']) : DateTime.now();
     isSeen = data['isSeen'];
     type = NotificationType.values[data['type'] - 1];
-    sender = User.fromJsom(data['sender']);
+    sender = User.fromJson(data['sender']);
   }
 }

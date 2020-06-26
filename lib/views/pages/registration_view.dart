@@ -30,12 +30,14 @@ class RegistrationPage extends StatelessWidget {
               style: TextStyle(
                 fontSize: 20
               ),
+              textAlign: TextAlign.center
             ),
             dialogButton: DialogButtons.ok
-          );
-          if(!flag || !(resultMessage == ResultMessage.emailExists)) {
-            Navigator.pop(context);
-          }
+          ).then((value) {
+            if(!flag || !(resultMessage == ResultMessage.emailExists)) {
+              Navigator.pop(context);
+            }
+          });
         });
       }
     } else { 

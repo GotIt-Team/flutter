@@ -5,25 +5,27 @@ import 'package:gotit/views/widgets/notification_card.dart';
 import 'package:gotit/views/widgets/progress_dialog.dart';
 
 class NotificationsTab extends StatefulWidget {
-  final NotificationsPresenter notificationsRepository = NotificationsPresenter();
   @override
   State<StatefulWidget> createState() => NotificationsState();
 }
 
 
 class NotificationsState extends State<NotificationsTab> {
+  NotificationsPresenter notificationsRepository = NotificationsPresenter();
   int notificationCount;
   int pageNo = 1;
   int pageSize = 10;
 
   void loadNotifications() {
+    if(context == null) return;
     ProgressDialog.show(
       context: context,
       isCircular: false,
-      method: () => widget.notificationsRepository.getNotifications(pageNo, pageSize).then((value) {
+      method: () => notificationsRepository.getNotifications(pageNo, pageSize).then((value) {
+        if(!mounted) return;
         setState(() {
-          if(widget.notificationsRepository.notifications != null){
-            notificationCount = widget.notificationsRepository.notifications.length;
+          if(notificationsRepository.notifications != null){
+            notificationCount = notificationsRepository.notifications.length;
           } else {
             notificationCount = 0;
           }
@@ -41,20 +43,18 @@ class NotificationsState extends State<NotificationsTab> {
 
   @override
   Widget build(BuildContext context) {
-    notificationCount = widget.notificationsRepository.notifications.length;
+    notificationCount = notificationsRepository.notifications.length;
     return notificationCount > 0 ? ListView.builder(
       itemCount: notificationCount,
       itemBuilder: (BuildContext context,int index) {
-        return Center(
-          child: NotificationCard(
-            id: widget.notificationsRepository.notifications[index].id,
-            content: widget.notificationsRepository.notifications[index].content,
-            date: widget.notificationsRepository.notifications[index].date,
-            isSeen: widget.notificationsRepository.notifications[index].isSeen,
-            link: widget.notificationsRepository.notifications[index].link,
-            userImage: widget.notificationsRepository.notifications[index].sender.picture,
-            userName: widget.notificationsRepository.notifications[index].sender.name,
-          ),
+        return NotificationCard(
+          id: notificationsRepository.notifications[index].id,
+          content: notificationsRepository.notifications[index].content,
+          date: notificationsRepository.notifications[index].date,
+          isSeen: notificationsRepository.notifications[index].isSeen,
+          link: notificationsRepository.notifications[index].link,
+          userImage: notificationsRepository.notifications[index].sender.picture,
+          userName: notificationsRepository.notifications[index].sender.name,
         );
       },  
     ) : EmptyState(
