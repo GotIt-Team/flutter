@@ -26,7 +26,7 @@ class StateMessage {
         result = "Please fill all missing data";
         break;
       case ResultMessage.invalidData:
-        result = "Please add an meaningful data";
+        result = "Please add a meaningful data";
         break;
       case ResultMessage.databaseError:
         result = "We are sorry this is our fault please try again later";
@@ -51,6 +51,9 @@ class StateMessage {
         break;
       case ResultMessage.notUserType:
         result = "";
+        break;
+      case ResultMessage.wrongPassword:
+        result = "Your password is wrong please enter a correct password";
         break;
       default:
         result = "Undefined error";

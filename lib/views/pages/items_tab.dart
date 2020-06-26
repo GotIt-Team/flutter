@@ -5,7 +5,6 @@ import 'package:gotit/presenters/item_presenter.dart';
 import 'package:gotit/views/widgets/progress_dialog.dart';
 
 class ItemsTab extends StatefulWidget {
-  final ItemPresenter itemPresenter = ItemPresenter();
   final bool isUserTab, lostItems;
   ItemsTab({this.isUserTab = false, this.lostItems = true});
   @override
@@ -13,18 +12,21 @@ class ItemsTab extends StatefulWidget {
 }
 
 class ItemsState extends State<ItemsTab> {
+  ItemPresenter itemPresenter = ItemPresenter();
   int itemCount = 0;
   int pageNo = 1;
   int pageSize = 10;
 
   void loadItems() {
+    if(context == null) return;
     ProgressDialog.show(
       context: context,
       isCircular: false,
-      method: () =>  widget.itemPresenter.getItems(pageNo, pageSize, widget.isUserTab ? 'user/items' : 'item', widget.lostItems).then((value) {
+      method: () =>  itemPresenter.getItems(pageNo, pageSize, widget.isUserTab ? 'user/items' : 'item', widget.lostItems).then((value) {
+        if(!mounted) return;
         setState(() {
-          if(widget.itemPresenter.items != null){
-            itemCount = widget.itemPresenter.items.length;
+          if(itemPresenter.items != null) {
+            itemCount = itemPresenter.items.length;
           } else {
             itemCount = 0;
           }
@@ -42,19 +44,17 @@ class ItemsState extends State<ItemsTab> {
 
   @override
   Widget build(BuildContext context) {
-    itemCount = widget.itemPresenter.items.length;
+    itemCount = itemPresenter.items.length;
     return itemCount > 0 ? ListView.builder(itemCount: itemCount,
       itemBuilder: (BuildContext context,int index){
-        return Center(
-          child: ItemCard(
-            userName: widget.itemPresenter.items[index].user.name,
-            userImage: widget.itemPresenter.items[index].user.picture,
-            content: widget.itemPresenter.items[index].content,
-            creationDate: widget.itemPresenter.items[index].creationDate,
-            image: widget.itemPresenter.items[index].image,
-            id: widget.itemPresenter.items[index].id,
-            isFirst: index == 0,
-          ),
+        return ItemCard(
+          userName: itemPresenter.items[index].user.name,
+          userImage: itemPresenter.items[index].user.picture,
+          content: itemPresenter.items[index].content,
+          creationDate: itemPresenter.items[index].creationDate,
+          image: itemPresenter.items[index].image,
+          id: itemPresenter.items[index].id,
+          isFirst: index == 0,
         );
       },
     ) : EmptyState(
