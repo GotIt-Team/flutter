@@ -18,6 +18,6 @@ class Item{
     creationDate = DateTime.parse(data['creationDate']);
     image = data['image'];
     type = ItemType.values[data['type'] - 1];
-    user = User.fromJsom(data['user']);
+    user = User.fromJson(data['user']);
   }
 }

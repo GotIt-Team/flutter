@@ -23,7 +23,7 @@ class User{
       'repeatPassword':repeatPassword,};
   }
 
-  User.fromJsom(dynamic data) {
+  User.fromJson(dynamic data) {
     id = data['id'];
     name = data['name'];
     picture = data['picture'];

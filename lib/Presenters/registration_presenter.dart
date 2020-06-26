@@ -5,7 +5,7 @@ import 'package:gotit/enums/user_type_enum.dart';
 import 'package:gotit/helpers.dart';
 import 'package:gotit/models/result_model.dart';
 import 'package:gotit/models/user_registration.dart';
-import 'package:gotit/Services/http_service.dart';
+import 'package:gotit/services/http_service.dart';
 import 'package:gotit/views/widgets/progress_dialog.dart';
 
 

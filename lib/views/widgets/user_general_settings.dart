@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gotit/enums/dialog_buttons_enum.dart';
@@ -9,11 +11,19 @@ import 'package:gotit/views/widgets/alert_dialog.dart';
 import 'package:gotit/Presenters/user_setting_presenter.dart';
 import 'package:gotit/services/state_message_service.dart';
 import 'package:gotit/enums/result_message_enum.dart';
-
+import 'package:path/path.dart' as path;
+import 'package:image_picker/image_picker.dart';
 
 class UserGeneralSettings extends StatelessWidget {
   UserSettingPresenter _generalSetting = UserSettingPresenter();
   final GlobalKey<FormState> formkey = GlobalKey<FormState>();
+  File _image;
+
+  void uploadPicture() async{
+    var image = await ImagePicker.pickImage(source: ImageSource.camera);
+    _image=image;
+  }
+
 
   void _updateGeneralData(BuildContext context, DialogResult result){
     if(result == DialogResult.update) {
@@ -49,21 +59,24 @@ class UserGeneralSettings extends StatelessWidget {
           key: formkey,
           child: Column(
             children: <Widget>[
-              GestureDetector(
-                onTap: () => print('picture clicked'),
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(40) ,
-                    border: Border.all(
-                      width: 2,
-                      color: Theme.of(context).primaryColor,
+              Row(
+                children: <Widget>[
+                   Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(40) ,
+                      border: Border.all(
+                        width: 2,
+                        color: Theme.of(context).primaryColor,
+                      ),
+                    ),
+                    child: CircleAvatar(
+                      radius: 35,
+                      backgroundImage: _image == null ? null : FileImage(_image),
                     ),
                   ),
-                  child: CircleAvatar(
-                    radius: 35,
-                    backgroundImage: AssetImage('assets/images/Sheka.jpg'),
-                  ),
-                ),
+                  GestureDetector(onTap: uploadPicture, child: Icon(Icons.camera_alt))
+
+                ],
               ),
               Padding(
                 padding: EdgeInsets.only(top: 20),

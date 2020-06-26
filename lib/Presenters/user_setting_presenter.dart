@@ -5,11 +5,18 @@ import 'package:gotit/Services/http_service.dart';
 import 'package:gotit/views/widgets/progress_dialog.dart';
 import 'package:gotit/enums/shared_preferences_enum.dart';
 import 'package:gotit/services/shared_preferences_service.dart';
+import 'package:path/path.dart' as path;
+import 'package:image_picker/image_picker.dart';
+
 
 class UserSettingPresenter {
   User userSetting ;
   String theme , language ;
   Result<bool> result;
+
+
+
+
 
   Future<void> _updateData() async {
 

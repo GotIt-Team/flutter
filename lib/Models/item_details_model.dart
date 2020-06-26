@@ -30,7 +30,7 @@ class ItemDetails{
     person = Person.fromJson(data['person']);
     object = ObjectModel.fromJson(data['object']);
     comments = List<Comment>.generate(data['comments'].length, (index) => Comment.fromJson(data['comments'][index]));
-    user = User.fromJsom(data['user']);
+    user = User.fromJson(data['user']);
   } 
   
 }

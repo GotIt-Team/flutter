@@ -10,7 +10,21 @@ import 'package:gotit/views/pages/tabs.dart';
 import 'package:gotit/views/pages/user_profile_view.dart';
 import 'package:gotit/views/pages/user_settings_tab.dart';
 
-void main() async {
+void main()=>runApp(App());
+
+class App extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return MaterialApp(
+      home: Scaffold(
+        body: UserSettingsTab(),
+      ),
+    );
+  }
+}
+
+/*void main() async {
   String token;
   if(WidgetsFlutterBinding.ensureInitialized() != null){
     token = await SharedPreference.getData(key: SharedPreferenceKeys.user_token);
@@ -55,4 +69,4 @@ class AppState extends State<App> {
       }
     );
   }
-}
+}*/
