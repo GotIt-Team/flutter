@@ -5,12 +5,13 @@ class Bubble extends StatelessWidget {
   final AlignmentGeometry alignment;
   final Widget child;
   final Color backgroundColor;
-  Bubble({this.alignment, this.child, this.backgroundColor});
+  final double padding;
+  Bubble({this.padding=10,this.alignment, this.child, this.backgroundColor});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 10),
+      padding: EdgeInsets.symmetric(horizontal: padding),
       alignment: alignment,
       child: Container(
         constraints: BoxConstraints(
