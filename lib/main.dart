@@ -7,6 +7,7 @@ import 'package:gotit/views/pages/login_view.dart';
 import 'package:gotit/views/pages/registration_view.dart';
 import 'package:gotit/views/pages/tabs.dart';
 import 'package:gotit/views/pages/user_profile_view.dart';
+import 'package:gotit/views/pages/feedback_view.dart';
 
 void main() async {
   if(WidgetsFlutterBinding.ensureInitialized() != null){
@@ -50,6 +51,7 @@ class AppState extends State<App> {
         "/sign-up": (BuildContext context) => RegistrationPage(),
         "/sign-in": (BuildContext context) => LoginPage(),
         "/profile": (BuildContext context) => UserProfile()
+
       }
     );
   }
