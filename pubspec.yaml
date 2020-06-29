@@ -21,6 +21,7 @@ dependencies:
   path: ^1.6.4
   image_picker: ^0.6.7+2
   rating_bar: ^0.2.0
+  timeago: ^2.0.26
 
 dev_dependencies:
   flutter_test:
