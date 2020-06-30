@@ -15,5 +15,7 @@ enum ResultMessage {
   userNotConfirmed,
   passwordNotMatched,
   notUserType,
-  wrongPassword
+  wrongPassword,
+  invalidExtension,
+  exceedMaxContent
 }

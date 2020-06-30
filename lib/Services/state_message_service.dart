@@ -55,6 +55,12 @@ class StateMessage {
       case ResultMessage.wrongPassword:
         result = "Your password is wrong please enter a correct password";
         break;
+      case ResultMessage.exceedMaxContent:
+        result = "You have exceed the max size of file!";
+        break;
+      case ResultMessage.invalidExtension:
+        result = "This file extension isn't acceptable";
+        break;
       default:
         result = "Undefined error";
         break;

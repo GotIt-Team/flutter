@@ -1,15 +1,16 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:gotit/models/result_model.dart';
 import 'package:dio/dio.dart';
 import 'package:gotit/services/user_data_service.dart';
+import 'package:path/path.dart';
 
 class Http {
   static final String _csharpDebugUrl = "localhost:54375";
   static final String _csharpProductionUrl = "";
   static final String _pythonDebugUrl = "localhost:5000";
   static final String _pythonProductionUrl = "";
-  static final int _requestTimeout = 20000;
 
   static String _backendAppUrl(bool isCsharp) {
     return isCsharp ? 
@@ -57,7 +58,24 @@ class Http {
     return headers;
   }
 
-  static Future<Result<TResponse>> send<TResponse>({@required String endpointUrl, String method='GET', Map<String, dynamic> headers, Map<String, dynamic> queryParameters, Object body, bool isCsharp = true, dynamic Function(dynamic) mapper}) async{
+  static Future<Result<List<String>>> uploadImage<TResponse>(List<File> files, {Map<String, dynamic> headers, Map<String, dynamic> queryParameters}) async {
+    Map<String, MultipartFile> filesMap = {};
+    for(var i = 0; i < files.length; i++){
+      filesMap['${'file-$i'}'] = MultipartFile.fromFileSync(files[0].path, filename: basename(files[0].path));
+    }
+    FormData formData = FormData.fromMap(filesMap);
+    return send(
+      endpointUrl: 'system/upload-image', 
+      body: formData,
+      headers: headers,
+      method: 'POST',
+      queryParameters: queryParameters,
+      isFormData: true,
+      mapper: (data) => List<String>.generate(data.length, (index) => data[index].toString())
+    );
+  }
+
+  static Future<Result<TResponse>> send<TResponse>({@required String endpointUrl, String method='GET', Map<String, dynamic> headers, Map<String, dynamic> queryParameters, Object body, bool isCsharp = true, dynamic Function(dynamic) mapper, bool isFormData = false}) async{
     try {
       // set token
       headers = await _setToken(headers);
@@ -69,13 +87,13 @@ class Http {
       Dio dio = Dio();
       var response = await dio.request(
         url.toString(),
-        data: jsonEncode(body),
+        data: isFormData ? body : jsonEncode(body),
         queryParameters: queryParameters,
         options: Options(
           method: method,
           headers: headers,
-          contentType: 'application/json; charset=utf-8',
-          sendTimeout: _requestTimeout,
+          contentType: '*/*',
+          sendTimeout: 20000,
           responseType: ResponseType.json
         )
       );
