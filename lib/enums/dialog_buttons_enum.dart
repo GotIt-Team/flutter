@@ -6,5 +6,6 @@ enum DialogButtons{
   yes_no,
   retry_cancel,
   update_cancle,
-  update
+  update,
+  submit,
 }

@@ -7,5 +7,6 @@ enum DialogResult {
   ignore,
   yes,
   no,
-  update
+  update,
+  submit
 }

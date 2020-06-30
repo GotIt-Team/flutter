@@ -7,12 +7,14 @@ class ImageSlider extends StatelessWidget {
   ImageSlider(this._images);
   @override
   Widget build(BuildContext context) {
+    final Orientation rotation = MediaQuery.of(context).orientation;
     final double deviceHeight = MediaQuery.of(context).size.height;
-    final double sliderHeight = deviceHeight * .3;
+    final double sliderHeight =(rotation==Orientation.landscape)? deviceHeight*.75:deviceHeight*.3;
+    
     return Container(
       height: sliderHeight,
       child: Carousel(
-        boxFit: BoxFit.scaleDown,
+        boxFit: BoxFit.cover,
         images: _images,
         animationCurve: Curves.fastOutSlowIn,
         animationDuration: Duration(seconds: 1),
