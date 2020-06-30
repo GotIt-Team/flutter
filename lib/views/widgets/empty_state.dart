@@ -17,6 +17,7 @@ class EmptyState extends StatelessWidget {
               padding: EdgeInsets.all(30),
               child: Text(
                 message,
+                textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Theme.of(context).primaryColor,
                   fontSize: 18

@@ -12,11 +12,11 @@ class ContactUsTab extends StatelessWidget {
   final ContactUsPresenter _contactUsPresenter = ContactUsPresenter();
   final GlobalKey<FormState> formkey = GlobalKey<FormState>();
 
-  void _sendEmail(BuildContext context, DialogResult result) {
+  void _sendEmail(BuildContext context, DialogResult result) async {
     if(result == DialogResult.ok) {
       if(formkey.currentState.validate()){
         formkey.currentState.save();
-        _contactUsPresenter.sendEmail(context);
+        await _contactUsPresenter.sendEmail(context);
         var flag = !_contactUsPresenter.result.isSucceeded || !_contactUsPresenter.result.data;
         var resultMessage = Helpers.getEnumFromString(ResultMessage.values, _contactUsPresenter.result.message);
         DialogBox.show(
@@ -48,14 +48,7 @@ class ContactUsTab extends StatelessWidget {
           'CONTACT US',
           style: TextStyle(
             color: Theme.of(context).textTheme.title.color,
-            fontSize: 15
-          )
-        ),
-        subtitle: Text(
-          'Feedback',
-          style: TextStyle(
-            color: Theme.of(context).textTheme.title.color,
-            fontSize: 28
+            fontSize: 22
           )
         ),
         trailing: Icon(
@@ -97,7 +90,7 @@ class ContactUsTab extends StatelessWidget {
                 keyboardType: TextInputType.multiline,
                 decoration: InputDecoration(
                   labelText: 'Message',
-                  hintText: ('Enter Your Message ...'),
+                  hintText: ('Enter Your Message ...')
                 ),
                 maxLines: 8,
                 maxLength: 1000,

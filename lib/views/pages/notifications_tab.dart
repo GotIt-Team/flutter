@@ -3,6 +3,7 @@ import 'package:gotit/presenters/notifications_presenter.dart';
 import 'package:gotit/views/widgets/empty_state.dart';
 import 'package:gotit/views/widgets/notification_card.dart';
 import 'package:gotit/views/widgets/progress_dialog.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 class NotificationsTab extends StatefulWidget {
   @override
@@ -11,7 +12,7 @@ class NotificationsTab extends StatefulWidget {
 
 
 class NotificationsState extends State<NotificationsTab> {
-  NotificationsPresenter notificationsRepository = NotificationsPresenter();
+  NotificationsPresenter notificationsPresenter = NotificationsPresenter();
   int notificationCount;
   int pageNo = 1;
   int pageSize = 10;
@@ -21,11 +22,11 @@ class NotificationsState extends State<NotificationsTab> {
     ProgressDialog.show(
       context: context,
       isCircular: false,
-      method: () => notificationsRepository.getNotifications(pageNo, pageSize).then((value) {
+      method: () => notificationsPresenter.getNotifications(pageNo, pageSize).then((value) {
         if(!mounted) return;
         setState(() {
-          if(notificationsRepository.notifications != null){
-            notificationCount = notificationsRepository.notifications.length;
+          if(notificationsPresenter.notifications != null){
+            notificationCount = notificationsPresenter.notifications.length;
           } else {
             notificationCount = 0;
           }
@@ -43,18 +44,18 @@ class NotificationsState extends State<NotificationsTab> {
 
   @override
   Widget build(BuildContext context) {
-    notificationCount = notificationsRepository.notifications.length;
+    notificationCount = notificationsPresenter.notifications.length;
     return notificationCount > 0 ? ListView.builder(
       itemCount: notificationCount,
       itemBuilder: (BuildContext context,int index) {
         return NotificationCard(
-          id: notificationsRepository.notifications[index].id,
-          content: notificationsRepository.notifications[index].content,
-          date: notificationsRepository.notifications[index].date,
-          isSeen: notificationsRepository.notifications[index].isSeen,
-          link: notificationsRepository.notifications[index].link,
-          userImage: notificationsRepository.notifications[index].sender.picture,
-          userName: notificationsRepository.notifications[index].sender.name,
+          id: notificationsPresenter.notifications[index].id,
+          content: notificationsPresenter.notifications[index].content,
+          date: timeago.format(notificationsPresenter.notifications[index].date),
+          isSeen: notificationsPresenter.notifications[index].isSeen,
+          link: notificationsPresenter.notifications[index].link,
+          userImage: notificationsPresenter.notifications[index].sender.picture,
+          userName: notificationsPresenter.notifications[index].sender.name,
         );
       },  
     ) : EmptyState(

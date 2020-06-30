@@ -5,12 +5,12 @@ import 'package:gotit/services/shared_preferences_service.dart';
 import 'dart:convert';
 
 class UserData {
-  static UserToken _user = UserToken();
+  static UserToken _user;
 
   static Future<void> init() async {
     if(_user == null) { 
       _user = await SharedPreference.getData<UserToken>(key: SharedPreferenceKeys.user_data, mapper: (data) {
-        if(data == null) return null;
+        if(data == null) return UserToken();
         var result = json.decode(data);
         return UserToken.fromJson(result);
       });
@@ -19,6 +19,7 @@ class UserData {
 
   static User get user {
     return User(
+      id: _user.id,
       name: _user.name,
       address: _user.address,
       phoneNumber: _user.phoneNumber,
@@ -35,6 +36,7 @@ class UserData {
   }
 
   static void copyWith(User user, String token) {
+    _user.id = user.id;
     _user.name = user.name;
     _user.picture = user.picture;
     _user.phoneNumber = user.phoneNumber;

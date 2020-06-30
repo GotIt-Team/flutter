@@ -26,6 +26,7 @@ class LoginPresenter {
     if(result.isSucceeded) {
       await SharedPreference.setString(key: SharedPreferenceKeys.user_data, value: json.encode(result.data));
       UserData.copyWith(User(
+        id: result.data.id,
         name: result.data.name,
         address: result.data.address,
         phoneNumber: result.data.phoneNumber,

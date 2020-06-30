@@ -16,7 +16,7 @@ class Notification{
     id = data['id'];
     link = data['link'];
     content = data['content'];
-    date = data['date'] != null ? DateTime.tryParse(data['date']) : DateTime.now();
+    date = DateTime.tryParse(data['date'] ?? DateTime.now());
     isSeen = data['isSeen'];
     type = NotificationType.values[data['type'] - 1];
     sender = User.fromJson(data['sender']);

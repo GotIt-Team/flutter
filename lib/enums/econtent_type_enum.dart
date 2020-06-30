@@ -1,4 +1,0 @@
-enum EcontentType{
-  text,
-  picture,
-}

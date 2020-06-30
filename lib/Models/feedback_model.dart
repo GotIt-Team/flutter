@@ -6,14 +6,14 @@ class FeedbackModel {
   String opinion;
   User user;
 
-  FeedbackModel({this.id,this.rate,this.opinion,this.user});
+  FeedbackModel({this.id, this.rate, this.opinion, this.user});
 
   Map<String, dynamic> toJson(){
     return {
-      'id': id,
+      'id': id ?? 0,
       'rate': rate,
       'opinion': opinion,
-      'user':user.toJson(),
+      'user': user?.toJson(),
     };
   }
 }

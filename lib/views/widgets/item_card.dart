@@ -1,12 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gotit/helpers.dart';
-import 'package:intl/intl.dart';
 
 class ItemCard extends StatelessWidget {
   final String userName;
   final String userImage;
-  final DateTime creationDate;
+  final String creationDate;
   final String image;
   final String content;
   final int id;
@@ -29,7 +28,7 @@ class ItemCard extends StatelessWidget {
               ListTile(
                 //title and subhead
                 title: Text(userName),
-                subtitle: Text(DateFormat().format(creationDate)),
+                subtitle: Text(creationDate),
                 //profile icon
                 leading: CircleAvatar(
                   backgroundImage: AssetImage('assets/images/Sheka.jpg'),

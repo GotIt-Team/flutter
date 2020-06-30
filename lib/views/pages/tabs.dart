@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:gotit/views/pages/chat_list_view.dart';
+import 'package:gotit/views/pages/chats_tab.dart';
 import 'package:gotit/views/pages/contact_us_tab.dart';
 import 'package:gotit/views/pages/items_tab.dart';
 import 'package:gotit/views/pages/notifications_tab.dart';
@@ -56,7 +56,7 @@ class TabsController extends StatelessWidget {
             ]),
           ),
         ),
-        body: TabBarView(children: <Widget>[ItemsTab(), NotificationsTab(), ChatListPage(), ContactUsTab()])
+        body: TabBarView(children: <Widget>[ItemsTab(), NotificationsTab(), ChatsTab(), ContactUsTab()])
       ),
     );
   }

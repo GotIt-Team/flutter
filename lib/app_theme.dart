@@ -23,7 +23,6 @@ class AppTheme {
   static final Color _darkPrimary = Color.fromARGB(255, 59, 117, 133);
   static final Color _darkSecondary = Color.fromARGB(255, 35, 45, 54);
   static final Color _darkBackground = Color.fromARGB(255, 28, 34, 39);
-  static final Color _darkSubtitle = Color.fromARGB(255, 189, 195, 199);
 
   static ThemeHandler themeHandler = ThemeHandler();
 
@@ -55,11 +54,11 @@ class AppTheme {
     
     inputDecorationTheme: InputDecorationTheme(
       focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.all(Radius.circular(5)),
+        borderRadius: BorderRadius.circular(40),
         borderSide: BorderSide(color: Colors.black)
       ),
       border: OutlineInputBorder(
-        borderRadius: BorderRadius.all(Radius.circular(5))
+        borderRadius: BorderRadius.circular(40)
       )
     ),
     
@@ -147,7 +146,7 @@ class AppTheme {
     ),
 
     fontFamily: 'Roboto',
-    primaryTextTheme: TextTheme(
+    textTheme: TextTheme(
       title: TextStyle(
         color: Colors.white,
         fontSize: 20.0,
@@ -157,7 +156,7 @@ class AppTheme {
         fontSize: 16.0
       ),
       subtitle: TextStyle(
-        color: _darkSubtitle,
+        color: Colors.white,
         fontSize: 18.0,
       )
     )

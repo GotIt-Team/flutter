@@ -3,6 +3,7 @@ import 'package:gotit/views/widgets/empty_state.dart';
 import 'package:gotit/views/widgets/item_card.dart';
 import 'package:gotit/presenters/item_presenter.dart';
 import 'package:gotit/views/widgets/progress_dialog.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 class ItemsTab extends StatefulWidget {
   final bool isUserTab, lostItems;
@@ -51,7 +52,7 @@ class ItemsState extends State<ItemsTab> {
           userName: itemPresenter.items[index].user.name,
           userImage: itemPresenter.items[index].user.picture,
           content: itemPresenter.items[index].content,
-          creationDate: itemPresenter.items[index].creationDate,
+          creationDate: timeago.format(itemPresenter.items[index].creationDate),
           image: itemPresenter.items[index].image,
           id: itemPresenter.items[index].id,
           isFirst: index == 0,

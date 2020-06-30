@@ -7,7 +7,7 @@ import 'package:gotit/views/pages/login_view.dart';
 import 'package:gotit/views/pages/registration_view.dart';
 import 'package:gotit/views/pages/tabs.dart';
 import 'package:gotit/views/pages/user_profile_view.dart';
-import 'package:gotit/views/pages/feedback_view.dart';
+import 'package:gotit/views/pages/chat_room_view.dart';
 
 void main() async {
   if(WidgetsFlutterBinding.ensureInitialized() != null){
@@ -50,8 +50,8 @@ class AppState extends State<App> {
         "/item-details": (BuildContext context) => ItemDetailsPage(),
         "/sign-up": (BuildContext context) => RegistrationPage(),
         "/sign-in": (BuildContext context) => LoginPage(),
-        "/profile": (BuildContext context) => UserProfile()
-
+        "/profile": (BuildContext context) => UserProfile(),
+        "chat-messages": (BuildContext context) => ChatRoomPage()
       }
     );
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gotit/views/ui_elements/rounded_buton_element.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class LandingPage extends StatelessWidget{  
@@ -18,39 +19,19 @@ class LandingPage extends StatelessWidget{
             child: Column(
               children: [
                 Image.asset("assets/images/landing_logo.png", height:MediaQuery.of(context).size.height * 0.6),
-                Padding(
+                RoundedButton(
+                  onPressed: () => Navigator.pushNamed(context, '/sign-in'),
                   padding: EdgeInsets.all(8.0),
-                  child: SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.50,
-                    height: MediaQuery.of(context).size.height * 0.07,
-                    child: RaisedButton(
-                      child: Text(
-                        'Log in',
-                        style: TextStyle(fontSize: 22), 
-                      ),
-                      onPressed: () => Navigator.pushNamed(context, '/sign-in'),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(MediaQuery.of(context).size.width)
-                      ),
-                    ),
-                  ),
+                  label: 'Log in',
+                  width: MediaQuery.of(context).size.width * 0.50,
+                  height: MediaQuery.of(context).size.height * 0.07,
                 ),
-                Padding(
+                RoundedButton(
+                  onPressed: () => Navigator.pushNamed(context, '/sign-up'),
                   padding: EdgeInsets.all(8.0),
-                  child: SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.50,
-                    height: MediaQuery.of(context).size.height * 0.07,
-                    child: RaisedButton(
-                      child: Text(
-                        'Registration', 
-                        style: TextStyle(fontSize: 22),
-                      ),
-                      onPressed: () => Navigator.pushNamed(context, '/sign-up'),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(MediaQuery.of(context).size.width)
-                      ),
-                    ),
-                  ),
+                  label: 'Registration',
+                  width: MediaQuery.of(context).size.width * 0.50,
+                  height: MediaQuery.of(context).size.height * 0.07
                 ),
                 Padding(
                   padding: EdgeInsets.only(top: 20),

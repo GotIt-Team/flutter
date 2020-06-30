@@ -19,6 +19,7 @@ class User{
   }
 
   User.fromJson(dynamic data) {
+    if(data == null) return;
     id = data['id'];
     name = data['name'];
     picture = data['picture'];

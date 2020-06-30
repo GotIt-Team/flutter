@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gotit/enums/dialog_buttons_enum.dart';
@@ -10,19 +8,11 @@ import 'package:gotit/views/widgets/alert_dialog.dart';
 import 'package:gotit/presenters/user_setting_presenter.dart';
 import 'package:gotit/services/state_message_service.dart';
 import 'package:gotit/enums/result_message_enum.dart';
-import 'package:path/path.dart' as path;
-import 'package:image_picker/image_picker.dart';
+import 'package:gotit/views/widgets/profile_image_settings.dart';
 
 class UserGeneralSettings extends StatelessWidget {
   final UserSettingsPresenter _generalSetting = UserSettingsPresenter();
   final GlobalKey<FormState> formkey = GlobalKey<FormState>();
-  File _image;
-
-  void uploadPicture() async{
-    var image = await ImagePicker.pickImage(source: ImageSource.camera);
-    _image=image;
-  }
-
 
   void _updateGeneralData(BuildContext context, DialogResult result){
     if(result == DialogResult.update) {
@@ -57,25 +47,7 @@ class UserGeneralSettings extends StatelessWidget {
           key: formkey,
           child: Column(
             children: <Widget>[
-              Row(
-                children: <Widget>[
-                   Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(40) ,
-                      border: Border.all(
-                        width: 2,
-                        color: Theme.of(context).primaryColor,
-                      ),
-                    ),
-                    child: CircleAvatar(
-                      radius: 35,
-                      backgroundImage: _image == null ? null : FileImage(_image),
-                    ),
-                  ),
-                  GestureDetector(onTap: uploadPicture, child: Icon(Icons.camera_alt))
-
-                ],
-              ),
+              ProfileImageSettings(_generalSetting.user.picture),
               Padding(
                 padding: EdgeInsets.only(top: 20),
                 child: TextFormField(

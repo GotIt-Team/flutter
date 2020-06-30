@@ -1,244 +1,111 @@
 import 'package:flutter/material.dart';
-import 'package:gotit/enums/econtent_type_enum.dart';
-import 'package:gotit/models/Message_model.dart';
-import 'package:gotit/models/user_model.dart';
-import 'package:gotit/presenters/message_presenter.dart';
+import 'package:gotit/presenters/chat_presenter.dart';
+import 'package:gotit/services/validator_service.dart';
+import 'package:gotit/views/widgets/chat_bubble.dart';
+import 'package:gotit/views/widgets/empty_state.dart';
+import 'package:gotit/views/widgets/progress_dialog.dart';
 
 class ChatRoomPage extends StatefulWidget {
-  final User userChat;
-  final Message messageContent;
-  final ChatRoomPresenter chatRoomPresenter = ChatRoomPresenter();
+  final int id;
+  final String userName;
+  final String userImage;
+  ChatRoomPage({this.id, this.userName, this.userImage});
 
-  ChatRoomPage({this.userChat, this.messageContent});
+  @override
   State<StatefulWidget> createState() => ChatRoomState();
 }
 
 class ChatRoomState extends State<ChatRoomPage> {
-  final messageTextController = TextEditingController();
-  String messageText;
-  int chatId;
-
-  _chatBubble(Message message, bool isMe, bool isSameUser) {
-    if (isMe) {
-      return Padding(
-        padding: EdgeInsets.only(right: 10),
-        child: Column(
-          children: <Widget>[
-            Container(
-              alignment: Alignment.topRight,
-              child: Container(
-                constraints: BoxConstraints(
-                    maxWidth: MediaQuery.of(context).size.width * 0.80),
-                padding: EdgeInsets.all(10),
-                margin: EdgeInsets.symmetric(vertical: 10),
-                decoration: BoxDecoration(
-                    color: Theme.of(context).primaryColor,
-                    borderRadius: BorderRadius.circular(15),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
-                        spreadRadius: 2,
-                        blurRadius: 5,
-                      ),
-                    ]),
-                child: Text(
-                  widget.messageContent.content,
-                  style: TextStyle(color: Colors.white),
-                ),
-              ),
-            ),
-          ],
-        ),
-      );
-    } else {
-      return Row(
-        children: <Widget>[
-          Padding(
-            padding: EdgeInsets.all(10),
-            child: Column(
-              children: <Widget>[
-                !isSameUser
-                    ? Column(
-                        children: <Widget>[
-                          Container(
-                            padding: EdgeInsets.all(2),
-                            /////////////////////////// removed condition ////////////////////
-                            decoration: BoxDecoration(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(40)),
-                              border: Border.all(
-                                width: 2,
-                                color: Theme.of(context).primaryColor,
-                              ),
-                            ),
-                            // BoxDecoration(
-                            //     shape: BoxShape.circle,
-                            //     boxShadow: [
-                            //       BoxShadow(
-                            //         color: Colors.grey.withOpacity(0.5),
-                            //         spreadRadius: 2,
-                            //         blurRadius: 5,
-                            //       ),
-                            //     ]
-                            // ),
-                            child: CircleAvatar(
-                              radius: 15,
-                              backgroundImage:
-                                  AssetImage(widget.userChat.picture),
-                            ),
-                          ),
-                          Text('${message.time}')
-                        ],
-                      )
-                    : Container(
-                        child: null,
-                      ),
-                SizedBox(
-                  height: 10,
-                ),
-              ],
-            ),
-          ),
-          Container(
-            alignment: Alignment.topLeft,
-            child: Container(
-              constraints: BoxConstraints(
-                  maxWidth: MediaQuery.of(context).size.width * 0.80),
-              padding: EdgeInsets.all(10),
-              margin: EdgeInsets.symmetric(vertical: 10),
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(15),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.5),
-                      spreadRadius: 2,
-                      blurRadius: 5,
-                    ),
-                  ]),
-              child: Text(widget.messageContent.content),
-            ),
-          ),
-        ],
-      );
-    }
-  }
-
-  _sendMessageArea() {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      child: Row(
-        children: <Widget>[
-          IconButton(
-            icon: Icon(
-              Icons.photo_library,
-              color: Theme.of(context).primaryColor,
-              size: 25,
-            ),
-            onPressed: () {
-              print('aa');
-            },
-          ),
-          Expanded(
-            child: TextField(
-              keyboardType: TextInputType.multiline,
-              maxLines: null,
-              controller: messageTextController,
-              onChanged: (value) {
-                widget.chatRoomPresenter.message.content = value;
-              },
-              decoration: InputDecoration(
-                  hintText: 'send Message',
-                  focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(40)),
-                      borderSide:
-                          BorderSide(color: Theme.of(context).primaryColor))),
-            ),
-          ),
-          IconButton(
-            icon: Icon(
-              Icons.send,
-              color: Theme.of(context).primaryColor,
-              size: 25,
-            ),
-            onPressed: () {
-              messageTextController.clear();
-              if (messageText.isEmpty) {
-                widget.chatRoomPresenter
-                    .sendMessage(EcontentType.text, 'welcome');
-              } else {
-                print('Typing');
-              }
-            },
-          ),
-        ],
-      ),
+  final TextEditingController _controller = TextEditingController();
+  ChatPresenter chatPresenter = ChatPresenter();
+  int messageCount = 0;
+  
+  Future<void> loadMessages() async {
+    if(context == null) return;
+    ProgressDialog.show(
+      context: context,
+      isCircular: false,
+      method: () =>  chatPresenter.getMessages(widget.id).then((value) {
+        if(!mounted) return;
+        setState(() {
+          if(chatPresenter.messages != null) {
+            messageCount = chatPresenter.messages.length;
+          } else {
+            messageCount = 0;
+          }
+        });
+      })
     );
   }
 
-  int previousId;
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(Duration.zero, loadMessages);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Container(
-            child: Row(
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.all(5),
-                  child: Container(
-                    child: CircleAvatar(
-                      radius: 20,
-                      backgroundImage: AssetImage(widget.userChat.picture),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.all(5),
-                  child: Container(
-                    child: Column(
-                      children: <Widget>[
-                        RichText(
-                          textAlign: TextAlign.center,
-                          text: TextSpan(children: [
-                            TextSpan(text: widget.userChat.name),
-                            TextSpan(text: '\n'),
-                            TextSpan(
-                              text: 'online',
-                            ),
-                          ]),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
+      appBar: AppBar(
+        title: ListTile(
+          leading: CircleAvatar(
+              backgroundImage: AssetImage(widget.userImage)),
+          title: Text(
+            widget.userName,
+            style: TextStyle(color: Colors.white, fontSize: 18.0),
           ),
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back_ios),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
-        ),
-        body: Column(
+        )
+      ),
+      body: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).unfocus();
+        },
+        child: Column(
           children: <Widget>[
             Expanded(
-              child: ListView.builder(
-                  itemCount: widget.chatRoomPresenter.messageChatList.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    final Message message =
-                        widget.chatRoomPresenter.messageChatList[index];
-                    final bool currentUser =
-                        message.sender.id == widget.userChat.id;
-                    final bool isSameUser = previousId == message.sender.id;
-                    previousId = message.sender.id;
-                    return _chatBubble(message, currentUser, isSameUser);
-                  }),
+              child: messageCount > 0 ? ListView.builder(
+                itemCount: messageCount,
+                itemBuilder: (BuildContext context, int index) {
+                  var message = chatPresenter.messages[index];
+                  bool isMe = message.senderId == chatPresenter.userId;
+                  return ChatBubble(
+                    isMe: isMe,
+                    message: message.content,
+                    time: message.time,
+                    userImage: widget.userImage
+                  );
+                }
+              ) : EmptyState(
+                image: 'assets/images/no_messages.png',
+                message: 'There is no message between both of you',
+              ),
             ),
-            _sendMessageArea()
-          ],
-        ));
+            ListTile(
+              title: TextField(
+                decoration: InputDecoration(
+                  hintText: "Type a message",
+                  fillColor: Theme.of(context).colorScheme.surface,
+                  filled: true,
+                ),
+                controller: _controller
+              ),
+              trailing: GestureDetector(
+                onTap: () {
+                  setState(() {
+                    if (Validator.requiredField(_controller.text) != null) return;
+                    chatPresenter.sendMessage(_controller.text).then((value){
+                      _controller.clear();
+                      messageCount = chatPresenter.messages.length;
+                    });
+                  });
+                },
+                child: Icon(Icons.send, size: 36)
+              )
+            )
+          ]
+        ),
+      )
+    );
   }
 }

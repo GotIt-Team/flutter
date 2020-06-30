@@ -32,7 +32,7 @@ class ContactUsPresenter {
     );
   }
 
-  void sendEmail(BuildContext context) async {
+  Future<void> sendEmail(BuildContext context) async {
     await ProgressDialog.show(
       context: context,
       isCircular: false,

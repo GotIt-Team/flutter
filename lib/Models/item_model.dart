@@ -13,6 +13,7 @@ class Item{
   Item({this.id, this.content, this.creationDate, this.image, this.type, this.user});
 
   Item.fromJson(dynamic data) {
+    if(data == null) return;
     id = data['id'];
     content = data['content'];
     creationDate = DateTime.parse(data['creationDate']);

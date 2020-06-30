@@ -10,30 +10,31 @@ import 'package:gotit/enums/result_message_enum.dart';
 
 
 class FeedbackPage extends StatelessWidget {
-  FeedbackPresenter feedbackPresenter = FeedbackPresenter() ;
+  final FeedbackPresenter feedbackPresenter = FeedbackPresenter() ;
   final GlobalKey<FormState> formkey = GlobalKey<FormState>();
 
 
-  void _sendFeedback(BuildContext context, DialogResult result) {
+  void _sendFeedback(BuildContext context, DialogResult result) async {
     if(result == DialogResult.ok) {
       if(formkey.currentState.validate()){
         formkey.currentState.save();
-        feedbackPresenter.sendFeedback(context);
+        await feedbackPresenter.sendFeedback(context);
         var flag = !feedbackPresenter.result.isSucceeded || !feedbackPresenter.result.data;
         var resultMessage = Helpers.getEnumFromString(ResultMessage.values, feedbackPresenter.result.message);
         DialogBox.show(
-            context: context,
-            title: Text(flag ? 'Error' : 'Done'),
-            content: Text(
-                StateMessage.get(resultMessage),
-                style: TextStyle(
-                    fontSize: 20
-                ),
-                textAlign: TextAlign.center
-            ),
-            dialogButton: DialogButtons.ok
+          context: context,
+          title: Text(flag ? 'Error' : 'Done'),
+          content: Text(
+              flag ? StateMessage.get(resultMessage) : 'Thank you for your feedback!',
+              style: TextStyle(
+                fontSize: 20
+              ),
+              textAlign: TextAlign.center
+          ),
+          dialogButton: DialogButtons.ok
         ).then((value) {
           formkey.currentState.reset();
+          Navigator.pushReplacementNamed(context, "/home");
         });
       }
     } else {
@@ -46,12 +47,12 @@ class FeedbackPage extends StatelessWidget {
     return DialogBox.dialog(
         context: context,
         title: ListTile(
-          title:Text(
-              'Rate Our App',
-              style: TextStyle(
-                  color: Theme.of(context).textTheme.title.color,
-                  fontSize: 15
-              )
+          title: Text(
+            'Rate Our App',
+            style: TextStyle(
+              color: Theme.of(context).textTheme.title.color,
+              fontSize: 22
+            )
           ),
           trailing: Icon(
             Icons.feedback,
@@ -61,15 +62,15 @@ class FeedbackPage extends StatelessWidget {
         content: Container(
           child:Form(
             key: formkey,
-           child: Column(
+            child: Column(
               children: [
                 Padding(
                   padding: EdgeInsets.only(top: 10),
                   child:  RatingBar(
-                    onRatingChanged: (rating) =>feedbackPresenter.setRate(rating),
+                    onRatingChanged: (rating) => feedbackPresenter.setRate(rating),
                     filledIcon: Icons.star,
                     emptyIcon: Icons.star_border,
-                    filledColor: Colors.amber,
+                    filledColor: Colors.amber
                   ),
                 ),
                 Padding(
@@ -78,18 +79,17 @@ class FeedbackPage extends StatelessWidget {
                     keyboardType: TextInputType.text,
                     decoration: InputDecoration(
                       labelText: 'Opinion',
-                      hintText: ('Enter Your Opinion'),
+                      hintText: ('Enter Your Opinion')
                     ),
-                   onSaved: feedbackPresenter.setOpinion,
+                    onSaved: feedbackPresenter.setOpinion,
                   ),
                 ),
-
               ],
             ),
           ),
         ),
         dialogButton: DialogButtons.ok_cancel,
-        onPress: (DialogResult result) => _sendFeedback(context,result)
+        onPress: (DialogResult result) => _sendFeedback(context, result)
     );
   }
 }
