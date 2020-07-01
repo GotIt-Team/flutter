@@ -5,15 +5,16 @@ import 'package:gotit/views/widgets/alert_dialog.dart';
 import 'package:gotit/enums/dialog_result_enum.dart';
 import 'package:gotit/enums/dialog_buttons_enum.dart';
 import 'package:gotit/Presenters/orgainzation_request_presenter.dart';
-import 'package:gotit/services/validator_service.dart';
+import 'package:gotit/enums/organization_enum.dart';
+import 'package:gotit/helpers.dart';
 
 // ignore: must_be_immutable
 class OrganizationRequestPage extends StatelessWidget {
   OrganizationRequestPresenter organizationRequestPresenter =
       OrganizationRequestPresenter();
   final GlobalKey<FormState> formkey = GlobalKey<FormState>();
-  List organization = ["Nursing Home", "orphanage", "Hospitals"];
-  _login(BuildContext context, DialogResult result) {}
+ // List organization = ["Nursing Home", "orphanage", "Hospitals"];
+  _sendRequest(BuildContext context, DialogResult result) {}
 
   @override
   Widget build(BuildContext context) {
@@ -42,26 +43,36 @@ class OrganizationRequestPage extends StatelessWidget {
                           organizationRequestPresenter.setTitle(value);
                         },
                         onChanged: (value) {},
-                        items:
-                            organization.map<DropdownMenuItem<String>>((value) {
+                        items: OrganizationType.values.map<DropdownMenuItem<String>>((orgType) {
+                          var val = Helpers.getStringFromEnum(orgType);
                           return DropdownMenuItem(
-                            value: value,
-                            child: Text(value),
+                            value: val,
+                            child: Text(val),
                           );
                         }).toList(),
                       ),
                     ),
                     Padding(
                       padding: EdgeInsets.only(top: 10),
-                      child: TextFormField(
+                      child: DropdownElement(
                         decoration: InputDecoration(
-                          icon: Icon(Icons.people),
-                          labelText: 'organization Name',
-                          hintText: 'Enter organization name',
+                          icon: Icon(Icons.person),
+                          labelText: 'Organization Name',
+                          hintText: 'Select Organization Name',
                         ),
-                        //validator: Validator.requiredField,
-                        onSaved:
-                            organizationRequestPresenter.setNameOrganization,
+                        icon: Icon(Icons.arrow_drop_down),
+                        iconSize: 24,
+                        onSaved: (value) {
+                          organizationRequestPresenter.setNameOrganization(value);
+                        },
+                        onChanged: (value) {},
+                        items:organizationRequestPresenter.organization.map<DropdownMenuItem<String>>((value) {
+
+                          return DropdownMenuItem(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
                       ),
                     ),
                     Padding(
@@ -75,18 +86,7 @@ class OrganizationRequestPage extends StatelessWidget {
                         //validator: Validator.requiredField,
                       ),
                     ),
-                    Padding(
-                      padding: EdgeInsets.only(top: 10),
-                      child: TextFormField(
-                        decoration: InputDecoration(
-                          icon: Icon(Icons.insert_link),
-                          labelText: 'Post Link',
-                          hintText:
-                              'Please Enter link of post that it is related to this above  message ',
-                        ),
-                        //validator: Validator.requiredField,
-                      ),
-                    ),
+
                     Padding(
                       padding: EdgeInsets.only(top: 10),
                       child: TextFormField(
@@ -105,6 +105,6 @@ class OrganizationRequestPage extends StatelessWidget {
               ),
             ),
             dialogButton: DialogButtons.ok_cancel,
-            onPress: (DialogResult result) => _login(context, result)));
+            onPress: (DialogResult result) => _sendRequest(context, result)));
   }
 }
