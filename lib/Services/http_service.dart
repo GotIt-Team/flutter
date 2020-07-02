@@ -8,9 +8,9 @@ import 'package:path/path.dart';
 
 class Http {
   static final String _csharpDebugUrl = "localhost:54375";
-  static final String _csharpProductionUrl = "";
+  static final String _csharpProductionUrl = "https://got-it.azurewebsites.net/";
   static final String _pythonDebugUrl = "localhost:5000";
-  static final String _pythonProductionUrl = "";
+  static final String _pythonProductionUrl = "https://ai-got-it.azurewebsites.net/";
 
   static String _backendAppUrl(bool isCsharp) {
     return isCsharp ? 
@@ -92,7 +92,7 @@ class Http {
         options: Options(
           method: method,
           headers: headers,
-          contentType: '*/*',
+          contentType: isFormData ? 'multipart/form-data;' : 'application/json',
           sendTimeout: 20000,
           responseType: ResponseType.json
         )
