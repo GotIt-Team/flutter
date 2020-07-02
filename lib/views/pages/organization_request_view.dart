@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:gotit/Services/validator_service.dart';
 import 'package:gotit/views/ui_elements/dropdown_element.dart';
 import 'package:gotit/views/widgets/alert_dialog.dart';
 import 'package:gotit/enums/dialog_result_enum.dart';
@@ -18,7 +17,6 @@ class OrganizationRequestPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
         body: DialogBox.dialog(
             context: context,
@@ -43,13 +41,7 @@ class OrganizationRequestPage extends StatelessWidget {
                           organizationRequestPresenter.setTitle(value);
                         },
                         onChanged: (value) {},
-                        items: OrganizationType.values.map<DropdownMenuItem<String>>((orgType) {
-                          var val = Helpers.getStringFromEnum(orgType);
-                          return DropdownMenuItem(
-                            value: val,
-                            child: Text(val),
-                          );
-                        }).toList(),
+                        items: Helpers.getListOfStringsFromEnum(OrganizationType.values),
                       ),
                     ),
                     Padding(
@@ -66,13 +58,7 @@ class OrganizationRequestPage extends StatelessWidget {
                           organizationRequestPresenter.setNameOrganization(value);
                         },
                         onChanged: (value) {},
-                        items:organizationRequestPresenter.organization.map<DropdownMenuItem<String>>((value) {
-
-                          return DropdownMenuItem(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
+                        items:organizationRequestPresenter.organization
                       ),
                     ),
                     Padding(

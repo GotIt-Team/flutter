@@ -35,7 +35,7 @@ class OrganizationRequestPresenter{
 
   Future<void> sendRequest() async {
 
-     var result = await Http.send<bool>(
+    await Http.send<bool>(
       endpointUrl: '',
       method: "POST",
       body: organizationRequest,

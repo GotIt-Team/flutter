@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class Helpers {
   static T getEnumFromString<T>(List<T> values, String value) {
     return values.firstWhere(
@@ -11,8 +9,8 @@ class Helpers {
     return genaricEnum.toString().split(".").last;
   }
 
-  static String truncateWithEllipsis(String text, int length) {
-    return (text.length <= length) ? text : '${text.substring(0, length)}...';
+  static String truncateWithEllipsis(String text, int length, {String showText='...'}) {
+    return (text.length <= length) ? text : text.substring(0, length) + showText;
   }
 
   static List<String> getListOfStringsFromEnum<T>(List<T> values) {

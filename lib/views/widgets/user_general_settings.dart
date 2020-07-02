@@ -47,7 +47,7 @@ class UserGeneralSettings extends StatelessWidget {
           key: formkey,
           child: Column(
             children: <Widget>[
-              ProfileImageSettings(_generalSetting.user.picture),
+              ProfileImageSettings(image: _generalSetting.user.picture, onSaved: _generalSetting.setImage),
               Padding(
                 padding: EdgeInsets.only(top: 20),
                 child: TextFormField(

@@ -4,7 +4,9 @@ import 'package:gotit/views/widgets/image_picker_dialog.dart';
 
 class ProfileImageSettings extends StatefulWidget {
   final String image;
-  ProfileImageSettings(this.image);
+  final FormFieldSetter<String> onSaved;
+  
+  ProfileImageSettings({this.image, this.onSaved});
   @override
   State<StatefulWidget> createState()  => ProfileImageState();
   
@@ -25,6 +27,7 @@ class ProfileImageState extends State<ProfileImageSettings> {
       setState(() {
         _image = value;
       });
+      widget.onSaved(_image);
     });
   }
 
@@ -42,7 +45,7 @@ class ProfileImageState extends State<ProfileImageSettings> {
         ),
         child: CircleAvatar(
           radius: 35,
-          backgroundImage: _image == null ? widget.image : NetworkImage(_image),
+          backgroundImage: NetworkImage(_image == null ? widget.image : _image),
         ),
       ),
     );

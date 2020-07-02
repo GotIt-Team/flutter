@@ -5,7 +5,6 @@ import 'package:gotit/enums/lost_found_enum.dart';
 import 'package:gotit/helpers.dart';
 import 'package:gotit/presenters/add_post_presenter.dart';
 import 'package:gotit/services/validator_service.dart';
-import 'package:gotit/views/ui_elements/add_post_dropdowns.dart';
 import 'package:gotit/views/ui_elements/dropdown_element.dart';
 import 'package:gotit/views/widgets/alert_dialog.dart';
 
@@ -33,13 +32,16 @@ class AddPostViewState extends State<AddPostView> {
                 child: ListView(
                   shrinkWrap: true,
                   children: <Widget>[
-                    AddPostDropDown(
+                    DropdownElement(
                      validator: Validator.requiredField,
                       icon: Icon(Icons.arrow_drop_down),
                       onSaved: (String value){value=='lost'?_postPresenter.addPostModel.itemDetails.isLost=false:_postPresenter.addPostModel.itemDetails.isLost=true;},
-                      choices:
-                          Helpers.getListOfStringsFromEnum(LostOrFound.values),
-                    ),
+                      items: Helpers.getListOfStringsFromEnum(LostOrFound.values),
+                      decoration: InputDecoration(
+                        icon: Icon(Icons.person),
+                        labelText: 'Item type'
+                      ),
+                    )
                   ],
                 )),
           ),

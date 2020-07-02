@@ -47,10 +47,10 @@ class StateMessage {
         result = "Please confirm your email first";
         break;
       case ResultMessage.passwordNotMatched:
-        result = "";
+        result = "Password does not match";
         break;
       case ResultMessage.notUserType:
-        result = "";
+        result = "User type isn\'t valid";
         break;
       case ResultMessage.wrongPassword:
         result = "Your password is wrong please enter a correct password";
@@ -62,7 +62,7 @@ class StateMessage {
         result = "This file extension isn't acceptable";
         break;
       default:
-        result = "Undefined error";
+        result = "We are sorry this is our fault please try again later";
         break;
     }
     return result;

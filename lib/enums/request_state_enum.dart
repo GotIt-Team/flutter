@@ -1,5 +1,5 @@
 enum RequestState{
-  approved,
   pending,
+  approved,
   rejected,
 }

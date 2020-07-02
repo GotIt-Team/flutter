@@ -152,13 +152,7 @@ class RegistrationPage extends StatelessWidget {
                             onChanged: (value){
                               _registrationPresenter.gender = value;
                             },
-                            items: Gender.values.map<DropdownMenuItem<String>>((gender) {
-                              var val = Helpers.getStringFromEnum(gender);
-                              return DropdownMenuItem(
-                                value: val,
-                                child: Text(val),
-                              );
-                            }).toList(),
+                            items: Helpers.getListOfStringsFromEnum(Gender.values)
                           ) ,
                         ),
                         Padding(

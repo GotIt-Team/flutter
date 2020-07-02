@@ -1,30 +1,23 @@
 import 'package:gotit/enums/shared_preferences_enum.dart';
 import 'package:gotit/models/user_model.dart';
-import 'package:gotit/models/user_token_model.dart';
 import 'package:gotit/services/shared_preferences_service.dart';
 import 'dart:convert';
 
 class UserData {
-  static UserToken _user;
+  static User _user;
 
   static Future<void> init() async {
     if(_user == null) { 
-      _user = await SharedPreference.getData<UserToken>(key: SharedPreferenceKeys.user_data, mapper: (data) {
-        if(data == null) return UserToken();
+      _user = await SharedPreference.getData<User>(key: SharedPreferenceKeys.user_data, mapper: (data) {
+        if(data == null) return User();
         var result = json.decode(data);
-        return UserToken.fromJson(result);
+        return User.fromJson(result);
       });
     }
   }
 
   static User get user {
-    return User(
-      id: _user.id,
-      name: _user.name,
-      address: _user.address,
-      phoneNumber: _user.phoneNumber,
-      picture: _user.picture
-    );
+    return _user;
   }
 
   static bool isLogged() {
@@ -35,12 +28,13 @@ class UserData {
     return _user == null ? null : _user.token;
   }
 
-  static void copyWith(User user, String token) {
+  static void copyWith(User user) {
     _user.id = user.id;
     _user.name = user.name;
     _user.picture = user.picture;
     _user.phoneNumber = user.phoneNumber;
     _user.address = user.address;
-    _user.token = token;
+    _user.token = user.token;
+    _user.type = user.type;
   }
 }

@@ -1,9 +1,12 @@
+import 'package:flutter/material.dart';
 import 'package:gotit/enums/request_state_enum.dart';
+import 'package:gotit/enums/user_type_enum.dart';
 import 'package:gotit/models/requests_model.dart';
 import 'package:gotit/models/result_model.dart';
 import 'package:gotit/services/http_service.dart';
+import 'package:gotit/services/user_data_service.dart';
 
-class RequestsPresenter{
+class RequestsPresenter with ChangeNotifier {
   List<Request> _requests = [];
   Result<bool> deleteResult;
   
@@ -25,7 +28,7 @@ class RequestsPresenter{
     return _requests;
   }
 
-  Future<void> deleteRequset(int id, RequestState state) async {
+  Future<void> deleteRequset(int index, int id, RequestState state) async {
     deleteResult = await Http.send<bool>(
       endpointUrl: '${'user/request/$id'}',
       method: 'DELETE',
@@ -33,5 +36,14 @@ class RequestsPresenter{
         "state": state.index + 1
       }
     );
-  }  
+
+    if(deleteResult.isSucceeded) {
+      _requests.removeAt(index);
+      notifyListeners();
+    }
+  }
+
+  UserType get userType {
+    return UserData.user.type;
+  }
 }

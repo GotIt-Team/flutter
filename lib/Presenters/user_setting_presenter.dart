@@ -16,10 +16,6 @@ class UserSettingsPresenter {
   String theme , language;
   Result<bool> result;
 
-
-
-
-
   Future<void> _updateData() async {
     user.id = 0;
     result = await Http.send<bool>(
@@ -30,7 +26,7 @@ class UserSettingsPresenter {
 
     if (result.isSucceeded) {
       SharedPreference.setString(key: SharedPreferenceKeys.user_data, value: json.encode(result.data));
-      UserData.copyWith(user, UserData.token);
+      UserData.copyWith(user);
     }
   }
 
@@ -56,6 +52,10 @@ class UserSettingsPresenter {
         isCircular: false,
         method: () => _changePassword()
     );
+  }
+
+  setImage(String image) {
+    user.picture = image;
   }
 
   setName(String name){

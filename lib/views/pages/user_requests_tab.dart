@@ -39,6 +39,11 @@ class UserRequestsState extends State<UserRequestsTab> {
     super.initState();
     requestsCount = 0;
     Future.delayed(Duration.zero, loadRequests);
+    requestPresenter.addListener((){
+      setState(() {
+        requestsCount = requestPresenter.requests.length;
+      });
+    });
   }
 
   @override
@@ -48,11 +53,13 @@ class UserRequestsState extends State<UserRequestsTab> {
       itemBuilder: (context, index) {
         var request = requestPresenter.requests[index];
         return RequestCard(
+          index: index,
           id: request.id,
           title: request.title,
           date: timeago.format(request.sendDate),
           image: request.receiver.picture,
           state: request.state,
+          requestsPresenter: requestPresenter,
         );
       },
     ) : EmptyState(

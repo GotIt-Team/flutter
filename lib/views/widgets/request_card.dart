@@ -3,20 +3,22 @@ import 'package:flutter/cupertino.dart';
 import 'package:gotit/enums/dialog_buttons_enum.dart';
 import 'package:gotit/enums/dialog_result_enum.dart';
 import 'package:gotit/enums/request_state_enum.dart';
+import 'package:gotit/enums/user_type_enum.dart';
 import 'package:gotit/helpers.dart';
 import 'package:gotit/presenters/requests_presenter.dart';
 import 'package:gotit/views/widgets/alert_dialog.dart';
 import 'package:gotit/views/widgets/progress_dialog.dart';
 
 class RequestCard extends StatelessWidget {
+  final int index;
   final int id;
   final String title;
   final String date;
   final String image;
   final RequestState state;
-  final RequestsPresenter _requestsPresenter = RequestsPresenter();
+  final RequestsPresenter requestsPresenter;
   
-  RequestCard({this.id, this.title, this.date, this.image, this.state});
+  RequestCard({this.index, this.id, this.title, this.date, this.image, this.state, this.requestsPresenter});
 
   Text _getState(BuildContext context) {
     return Text(
@@ -53,7 +55,7 @@ class RequestCard extends StatelessWidget {
     ProgressDialog.show(
       context: context,
       isCircular: false,
-      method: () => _requestsPresenter.deleteRequset(id, state)
+      method: () => requestsPresenter.deleteRequset(index, id, state)
     );
   }
 
@@ -84,7 +86,8 @@ class RequestCard extends StatelessWidget {
               children: <Widget>[_getState(context), Text(date)]
             ),
             isThreeLine: true,
-            trailing: state != RequestState.approved ? FlatButton.icon(
+            trailing: state != RequestState.approved && requestsPresenter.userType == UserType.regular 
+            ? FlatButton.icon(
               onPressed: () => _deleteRequest(context), 
               icon: Icon(Icons.close), 
               label: Text('Remove')
