@@ -152,7 +152,8 @@ class RegistrationPage extends StatelessWidget {
                             onChanged: (value){
                               _registrationPresenter.gender = value;
                             },
-                            items: Helpers.getListOfStringsFromEnum(Gender.values)
+                            items: Helpers.getListOfStringsFromEnum(Gender.values),
+                            validator: Validator.requiredField,
                           ) ,
                         ),
                         Padding(

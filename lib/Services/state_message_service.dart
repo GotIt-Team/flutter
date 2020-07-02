@@ -61,6 +61,9 @@ class StateMessage {
       case ResultMessage.invalidExtension:
         result = "This file extension isn't acceptable";
         break;
+      case ResultMessage.registrationDone:
+        result = "Your registration done successfully please confirm your email";
+        break;
       default:
         result = "We are sorry this is our fault please try again later";
         break;

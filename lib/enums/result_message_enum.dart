@@ -17,5 +17,6 @@ enum ResultMessage {
   notUserType,
   wrongPassword,
   invalidExtension,
-  exceedMaxContent
+  exceedMaxContent,
+  registrationDone
 }

@@ -7,10 +7,10 @@ import 'package:gotit/services/user_data_service.dart';
 import 'package:path/path.dart';
 
 class Http {
-  static final String _csharpDebugUrl = "localhost:54375";
-  static final String _csharpProductionUrl = "https://got-it.azurewebsites.net/";
+  static final String _csharpDebugUrl = "got-it.azurewebsites.net";
+  static final String _csharpProductionUrl = "got-it.azurewebsites.net";
   static final String _pythonDebugUrl = "localhost:5000";
-  static final String _pythonProductionUrl = "https://ai-got-it.azurewebsites.net/";
+  static final String _pythonProductionUrl = "ai-got-it.azurewebsites.net";
 
   static String _backendAppUrl(bool isCsharp) {
     return isCsharp ? 

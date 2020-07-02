@@ -9,7 +9,7 @@ class Validator {
   static String _password;
   
   static String requiredField(String value){
-    if(value.isEmpty) {
+    if(value == null || value.isEmpty) {
       return _required;
     }
     return null;
