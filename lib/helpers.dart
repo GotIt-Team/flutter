@@ -14,11 +14,11 @@ class Helpers {
   }
 
   static List<String> getListOfStringsFromEnum<T>(List<T> values) {
-    List <String>x=[];
-    x  = values.map((usedEnum) {
+    List <String>valuesList=[];
+    valuesList  = values.map((usedEnum) {
       return Helpers.getStringFromEnum(usedEnum).toString();
     }).toList();
-    print (x);
-    return x;
+    
+    return valuesList;
   }
 }
