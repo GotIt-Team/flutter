@@ -138,7 +138,7 @@ class ItemDetailsState extends State<ItemDetailsPage> {
                   MaterialButton(
                       color: Theme.of(context).accentColor,
                       elevation: 4.0,
-                      animationDuration: Duration(microseconds: 500),
+                      animationDuration: Duration(milliseconds: 500),
                       hoverElevation: 10.0,
                       child: Text('I found This'),
                       onPressed: () => print('button tabbed')),

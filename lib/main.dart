@@ -9,6 +9,7 @@ import 'package:gotit/views/pages/registration_view.dart';
 import 'package:gotit/views/pages/tabs.dart';
 import 'package:gotit/views/pages/user_profile_view.dart';
 import 'package:gotit/views/pages/chat_room_view.dart';
+import 'package:gotit/views/widgets/full_image_view.dart';
 
 void main() async {
   if(WidgetsFlutterBinding.ensureInitialized() != null){
@@ -54,7 +55,7 @@ class AppState extends State<App> {
         "/profile": (BuildContext context) => UserProfile(),
         "/chat-messages": (BuildContext context) => ChatRoomPage(),
         "/add-post": (BuildContext context) => AddPostView(),
-
+        "/full-image":(BuildContext context)=> FullImageView(),
       }
     );
   }

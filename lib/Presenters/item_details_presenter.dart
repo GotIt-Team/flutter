@@ -1,3 +1,4 @@
+import 'package:gotit/enums/attributes_enum.dart';
 import 'package:gotit/models/comment_model.dart';
 import 'package:gotit/models/user_model.dart';
 import 'package:gotit/models/item_details_model.dart';
@@ -47,9 +48,9 @@ class ItemDetailsPresenter {
     if(statusCode==200)
     detailsModel.comments.add(Comment(content: content,date: DateTime.now(),id: 10,user: User(address: 'keymanFares msakenT3awnyat',id: 10,name: 'dsddsd',picture: 'assets/images/Capture.JPG',phoneNumber: '010852345'),),); 
   }
-  set isLost(bool isLost) {
-    detailsModel.isLost = isLost;
-  }
+ 
+
+ 
   ItemDetails get postDetails {
     return detailsModel;
   }

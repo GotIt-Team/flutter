@@ -19,10 +19,8 @@ class LoginPage extends StatelessWidget{
         formkey.currentState.save();
         loginPresenter.login(context).then((value) {
           if(loginPresenter.result.isSucceeded) {
-            Navigator.pushNamed(context, "/home");
-            return;
+            Navigator.pushReplacementNamed(context, "/home");
           }
-
           var resultMessage = Helpers.getEnumFromString(ResultMessage.values, loginPresenter.result.message);
           DialogBox.show(
             context: context, 

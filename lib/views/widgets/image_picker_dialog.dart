@@ -12,7 +12,7 @@ import 'package:image_picker/image_picker.dart';
 class ImagePickerDialog {
   final ImagePickerPresenter _imagePickerPresenter = ImagePickerPresenter();
   final ImagePicker _image = ImagePicker();
-  static const int max_len = 1024 * 1024 * 3;
+  static const int max_len = 1024 * 1024 * 5;
 
   Future<String> getImage(BuildContext context) async {
     var file = await showModalBottomSheet(context: context, builder: (BuildContext context) => _build(context));
