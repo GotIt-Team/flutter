@@ -20,6 +20,7 @@ class LoginPage extends StatelessWidget{
         loginPresenter.login(context).then((value) {
           if(loginPresenter.result.isSucceeded) {
             Navigator.pushReplacementNamed(context, "/home");
+            return;
           }
           var resultMessage = Helpers.getEnumFromString(ResultMessage.values, loginPresenter.result.message);
           DialogBox.show(

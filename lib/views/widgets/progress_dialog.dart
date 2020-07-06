@@ -10,21 +10,23 @@ class ProgressDialog {
       context: context,
       barrierDismissible: false,
       builder: (BuildContext buildContext) {
-        return AlertDialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(15))
-          ),
-          content: SingleChildScrollView(
-            child: Center(
-              child: ListTile(
-                title: Center(child: Text('Please Wait ...')),
-                subtitle: !isCircular ? LinearProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColor),
-                  backgroundColor: null,
-                ) : null,
-                leading: isCircular ? CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColor)
-                ) : null
+        return WillPopScope(
+          onWillPop: () async => false,
+          child: AlertDialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(15))
+            ),
+            content: SingleChildScrollView(
+              child: Center(
+                child: ListTile(
+                  title: Center(child: Text('Please Wait ...')),
+                  subtitle: !isCircular ? LinearProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColor)
+                  ) : null,
+                  leading: isCircular ? CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColor)
+                  ) : null
+                ),
               ),
             ),
           ),

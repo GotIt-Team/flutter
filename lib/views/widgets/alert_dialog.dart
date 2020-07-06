@@ -28,87 +28,64 @@ class DialogBox {
     return result;
   }
 
-  static Widget dialog({@required BuildContext context, @required Widget title, Widget content, DialogButtons dialogButton = DialogButtons.ok, void Function(DialogResult) onPress, bool isPopup=false}) {
+  static Widget dialog({EdgeInsetsGeometry padding, @required BuildContext context, @required Widget title, Widget content, DialogButtons dialogButton = DialogButtons.ok, void Function(DialogResult) onPress, bool isPopup=false, Widget titleTrailing}) {
     return Center(
-      child: SingleChildScrollView(
-        child: Center(
-          child: Card(
-            margin: EdgeInsets.only(
-              left: 15,
-              right: 15
+      child: Card(
+        margin: EdgeInsets.only(
+          left: 15,
+          right: 15
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Semantics(
+              child: AppBar(
+                automaticallyImplyLeading: false,
+                title: title,
+                actions: titleTrailing != null ? [Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: titleTrailing,
+                )] : [],
+              ),
+              namesRoute: true,
+              container: true,
             ),
-            elevation: 10,
-            child: Center(
-              child: Container(
-                padding: EdgeInsets.all(0),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5),
-                ),
-                child: Column(
-                  children: [
-                    Center(
-                      child: AppBar(
-                        backgroundColor: Theme.of(context).primaryColor,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(4),
-                            topRight: Radius.circular(4)
-                          )
-                        ),
-                        automaticallyImplyLeading: false,
-                        title: title,
-                        actions: isPopup ? [
-                          IconButton(
-                            icon: Icon(Icons.close),
-                            onPressed: () {
-                              Navigator.pop(context, DialogResult.close);
-                            },
-                          )
-                        ] : []
-                      ),
-                    ),
-                    // Dialog Content 
-                    Padding(
-                      padding: EdgeInsets.only(
-                        top: 24,
-                        bottom: 24,
-                        left: 20,
-                        right: 20
-                      ),
-                      child: SingleChildScrollView(
-                        child: Center(
-                          child: content
-                        ),
-                      ),
-                    ),
-                    Row(
-                      textDirection: TextDirection.rtl,
-                      children: _buttons(context, dialogButton, isPopup, onPress),
-                    )
-                  ],
-                ),
+            Flexible(
+              child: Padding(
+                padding: padding ?? EdgeInsets.all(10),
+                child: SingleChildScrollView(child: content),
               ),
             ),
-          ),
+            ButtonBar(
+              children: _buttons(context, dialogButton, isPopup, onPress),
+            ),
+          ],
         ),
       ),
     );
   }
 
   static Future<DialogResult> show({@required BuildContext context, @required Widget title, Widget content, DialogButtons dialogButton = DialogButtons.ok}) async{
-    return showGeneralDialog(
+    return showDialog(
       context: context,
       barrierDismissible: false,
-      barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
-      barrierColor: Colors.black45,
-      transitionDuration: const Duration(milliseconds: 200),
-      pageBuilder: (BuildContext buildContext, Animation animation, Animation secondaryAnimation) {
-        return dialog(
-          context: buildContext, 
-          title: title, 
-          content: content, 
-          dialogButton: dialogButton, 
-          isPopup: true
+      builder: (BuildContext buildContext) {
+        return WillPopScope(
+          onWillPop: () async => false,
+          child: dialog(
+            context: buildContext, 
+            title: title, 
+            content: content, 
+            dialogButton: dialogButton, 
+            isPopup: true,
+            titleTrailing: IconButton(
+              icon: Icon(Icons.close),
+              onPressed: () {
+                Navigator.pop(context, DialogResult.close);
+              },
+            )
+          ),
         );
       }
     );

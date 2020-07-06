@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gotit/views/ui_elements/cached_image_element.dart';
 import 'package:gotit/views/widgets/image_picker_dialog.dart';
 
 class ProfileImageSettings extends StatefulWidget {
@@ -45,7 +46,7 @@ class ProfileImageState extends State<ProfileImageSettings> {
         ),
         child: CircleAvatar(
           radius: 35,
-          backgroundImage: NetworkImage(_image == null ? widget.image : _image),
+          backgroundImage: CachedImage.provider(_image == null ? widget.image : _image)
         ),
       ),
     );

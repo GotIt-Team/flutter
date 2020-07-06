@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:gotit/app_theme.dart';
 import 'package:gotit/services/user_data_service.dart';
 import 'package:gotit/views/pages/add_post_view.dart';
-import 'package:gotit/views/pages/item_details_view.dart';
 import 'package:gotit/views/pages/landing_view.dart';
 import 'package:gotit/views/pages/login_view.dart';
 import 'package:gotit/views/pages/registration_view.dart';
@@ -49,13 +48,12 @@ class AppState extends State<App> {
       home: widget.isLogged ? TabsController() : LandingPage(),
       routes: {
         "/home": (BuildContext context) => TabsController(),
-        "/item-details": (BuildContext context) => ItemDetailsPage(),
         "/sign-up": (BuildContext context) => RegistrationPage(),
         "/sign-in": (BuildContext context) => LoginPage(),
         "/profile": (BuildContext context) => UserProfile(),
         "/chat-messages": (BuildContext context) => ChatRoomPage(),
         "/add-post": (BuildContext context) => AddPostView(),
-        "/full-image":(BuildContext context)=> FullImageView(),
+        "/full-image":(BuildContext context) => FullImageView(),
       }
     );
   }

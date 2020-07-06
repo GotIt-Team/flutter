@@ -142,8 +142,8 @@ class _AddPostViewState extends State<AddPostView> {
           if (_objectAttributesFormKey.currentState.validate()) {
             _objectAttributesFormKey.currentState.save();
             _postPresenter.addPostModel.itemDetails.attributes = {
-              0: brand,
-              2: serial
+              Attributes.brand: brand,
+              Attributes.serial: serial
             };
             print(_postPresenter.addPostModel.itemDetails.attributes);
 
@@ -155,8 +155,8 @@ class _AddPostViewState extends State<AddPostView> {
           if (_personAttributesFormKey.currentState.validate()) {
             _personAttributesFormKey.currentState.save();
             _postPresenter.addPostModel.itemDetails.attributes = {
-              5: gender,
-              4: age
+              Attributes.gender: gender,
+              Attributes.ageStage: age
             };
             print(_postPresenter.addPostModel.itemDetails.attributes);
             //send data request

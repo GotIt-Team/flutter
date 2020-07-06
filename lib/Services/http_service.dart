@@ -7,15 +7,12 @@ import 'package:gotit/services/user_data_service.dart';
 import 'package:path/path.dart';
 
 class Http {
-  static final String _csharpDebugUrl = "got-it.azurewebsites.net";
-  static final String _csharpProductionUrl = "got-it.azurewebsites.net";
-  static final String _pythonDebugUrl = "localhost:5000";
-  static final String _pythonProductionUrl = "ai-got-it.azurewebsites.net";
+  static final String _csharpUrl = !kReleaseMode ? "localhost:54375" : "got-it.azurewebsites.net";
+  static final String _pythonUrl = !kReleaseMode ? "localhost:5000" : "ai-got-it.azurewebsites.net";
 
   static String _backendAppUrl(bool isCsharp) {
     return isCsharp ? 
-      kReleaseMode ? _csharpProductionUrl : _csharpDebugUrl : 
-      kReleaseMode ? _pythonProductionUrl : _pythonDebugUrl;
+      _csharpUrl : _pythonUrl;
   }
 
   static Result<TResponse> _fail<TResponse>(String exception){

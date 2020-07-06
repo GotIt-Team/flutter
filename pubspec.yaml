@@ -23,7 +23,7 @@ dependencies:
   rating_bar: ^0.2.0
   timeago: ^2.0.26
   carousel_slider: ^2.2.1
-  carousel_pro: ^1.0.0
+  cached_network_image: ^2.2.0+1
 
 dev_dependencies:
   flutter_test:
@@ -57,3 +57,4 @@ flutter:
   - assets/images/no_messages.png
   - assets/images/landing.png
   - assets/images/no_requests.png
+  - assets/images/user.jpg

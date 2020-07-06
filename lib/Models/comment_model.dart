@@ -14,4 +14,13 @@ class Comment{
     content = data['content'];
     user = User.fromJson(data['user']);
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'date': date,
+      'content': content,
+      'user': user.toJson()
+    };
+  }
 }

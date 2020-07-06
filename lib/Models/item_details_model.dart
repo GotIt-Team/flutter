@@ -1,8 +1,8 @@
 
+import 'package:gotit/enums/attributes_enum.dart';
 import 'package:gotit/enums/item_type.dart';
-
+import 'package:gotit/helpers.dart';
 import 'package:gotit/models/user_model.dart';
-import 'package:gotit/models/comment_model.dart';
 
 class ItemDetails{
   int id;
@@ -12,23 +12,24 @@ class ItemDetails{
   ItemType type;
   List<String> images;
   List<List<int>>boxes;
-  Map<int,String> attributes;
+  Map<Attributes, String> attributes;
   
-  List<Comment> comments;
   User user;
 
   ItemDetails({this.id, this.creationDate, this.content, this.isLost, this.type, 
-    this.images, this.comments, this.user,this.attributes,this.boxes});
+    this.images, this.user,this.attributes,this.boxes});
   
   ItemDetails.fromJson(dynamic data){
     id = data['id'];
-    creationDate = data['creationDate'];
+    creationDate = DateTime.parse(data['creationDate']);
     content = data['content'];
     isLost = data['isLost'];
     type = ItemType.values[data['type'] - 1];
-    images = data['images'];
-    attributes = data['attributes'];
-    comments = List<Comment>.generate(data['comments'].length, (index) => Comment.fromJson(data['comments'][index]));
+    images = List<String>.generate(data['images'].length, (index) => data['images'][index].toString());
+    attributes = {};
+    data['attributes'].forEach((key, value) {
+      attributes[Helpers.getEnumFromString(Attributes.values, key)] = value;
+    });
     user = User.fromJson(data['user']);
   } 
   

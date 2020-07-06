@@ -46,18 +46,16 @@ class FeedbackPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return DialogBox.dialog(
         context: context,
-        title: ListTile(
-          title: Text(
-            'Rate Our App',
-            style: TextStyle(
-              color: Theme.of(context).textTheme.title.color,
-              fontSize: 22
-            )
-          ),
-          trailing: Icon(
-            Icons.feedback,
-            color: Theme.of(context).iconTheme.color,
-          ),
+        title: Text(
+          'Rate Our App',
+          style: TextStyle(
+            color: Theme.of(context).textTheme.title.color,
+            fontSize: 22
+          )
+        ),
+        titleTrailing: Icon(
+          Icons.feedback,
+          color: Theme.of(context).iconTheme.color,
         ),
         content: Container(
           child:Form(

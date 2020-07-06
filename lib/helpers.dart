@@ -9,16 +9,15 @@ class Helpers {
     return genaricEnum.toString().split(".").last;
   }
 
-  static String truncateWithEllipsis(String text, int length, {String showText='...'}) {
-    return (text.length <= length) ? text : text.substring(0, length) + showText;
+  static String truncateWithEllipsis(String text, int length) {
+    return (text.length <= length) ? text : text.substring(0, length) + '...';
   }
 
   static List<String> getListOfStringsFromEnum<T>(List<T> values) {
-    List <String>valuesList=[];
-    valuesList  = values.map((usedEnum) {
-      return Helpers.getStringFromEnum(usedEnum).toString();
-    }).toList();
-    
-    return valuesList;
+    return values.map((usedEnum) => Helpers.getStringFromEnum(usedEnum)).toList();
+  }
+  
+  static bool isStartWithArabic(String text) {
+    return RegExp(r"^[\u0600-\u06FF]").hasMatch(text);
   }
 }

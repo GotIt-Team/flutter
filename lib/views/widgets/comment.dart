@@ -12,20 +12,19 @@ class CommentView extends StatelessWidget {
   final String content;
   final int index;
 
-  CommentView(
-      {
-        this.index,
-      this.content,
-      @required this.date,
-      @required this.picture,
-      @required this.userName});
+  CommentView({
+    this.index,
+    this.content,
+    @required this.date,
+    @required this.picture,
+    @required this.userName
+  });
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        ListTile(
-          
+        ListTile(          
           title: Bubble(
             padding: 0,
             alignment: Alignment.centerLeft,

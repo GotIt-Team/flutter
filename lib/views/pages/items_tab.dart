@@ -46,15 +46,17 @@ class ItemsState extends State<ItemsTab> {
   @override
   Widget build(BuildContext context) {
     itemCount = itemPresenter.items.length;
-    return itemCount > 0 ? ListView.builder(itemCount: itemCount,
-      itemBuilder: (BuildContext context,int index){
+    return itemCount > 0 ? ListView.builder(
+      itemCount: itemCount,
+      itemBuilder: (BuildContext context, int index){
         return ItemCard(
           userName: itemPresenter.items[index].user.name,
           userImage: itemPresenter.items[index].user.picture,
           content: itemPresenter.items[index].content,
-          creationDate: timeago.format(itemPresenter.items[index].creationDate),
-          image: itemPresenter.items[index].image,
+          date: timeago.format(itemPresenter.items[index].creationDate),
+          images: itemPresenter.items[index].images,
           id: itemPresenter.items[index].id,
+          attributes: itemPresenter.items[index].attributes,
           isFirst: index == 0,
         );
       },

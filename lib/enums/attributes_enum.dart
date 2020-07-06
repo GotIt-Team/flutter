@@ -3,6 +3,6 @@ enum Attributes {
   model,
   serial,
   size,
-  age,
+  ageStage,
   gender,
 }

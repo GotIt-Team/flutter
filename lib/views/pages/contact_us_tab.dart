@@ -43,18 +43,16 @@ class ContactUsTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return DialogBox.dialog(
       context: context,
-      title: ListTile(
-        title: Text(
-          'CONTACT US',
-          style: TextStyle(
-            color: Theme.of(context).textTheme.title.color,
-            fontSize: 22
-          )
-        ),
-        trailing: Icon(
-          Icons.mail,
-          color: Theme.of(context).iconTheme.color,
+      title: Text(
+        'CONTACT US',
+        style: TextStyle(
+          color: Theme.of(context).textTheme.title.color,
+          fontSize: 22
         )
+      ),
+      titleTrailing: Icon(
+        Icons.mail,
+        color: Theme.of(context).iconTheme.color,
       ),
       content: Form(
         key: formkey,
@@ -67,6 +65,7 @@ class ContactUsTab extends StatelessWidget {
                 decoration: InputDecoration(
                   labelText: 'Email',
                   hintText: ('example@email.com'),
+                  icon: Icon(Icons.email)
                 ),
                 validator: Validator.emailField,
                 onSaved: _contactUsPresenter.setEmail
@@ -79,6 +78,7 @@ class ContactUsTab extends StatelessWidget {
                 decoration: InputDecoration(
                   labelText: 'Subject',
                   hintText: ('Enter Subject'),
+                  icon: Icon(Icons.subject)
                 ),
                 validator: Validator.requiredField,
                 onSaved: _contactUsPresenter.setSubject
@@ -90,7 +90,8 @@ class ContactUsTab extends StatelessWidget {
                 keyboardType: TextInputType.multiline,
                 decoration: InputDecoration(
                   labelText: 'Message',
-                  hintText: ('Enter Your Message ...')
+                  hintText: ('Enter Your Message ...'),
+                  icon: Icon(Icons.message)
                 ),
                 maxLines: 8,
                 maxLength: 1000,
