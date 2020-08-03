@@ -13,13 +13,13 @@ class ItemDetails{
   List<String> images;
   List<List<int>>boxes;
   Map<Attributes, String> attributes;
-  
   User user;
 
   ItemDetails({this.id, this.creationDate, this.content, this.isLost, this.type, 
     this.images, this.user,this.attributes,this.boxes});
   
   ItemDetails.fromJson(dynamic data){
+    print(data);
     id = data['id'];
     creationDate = DateTime.parse(data['creationDate']);
     content = data['content'];

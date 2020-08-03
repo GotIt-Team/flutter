@@ -22,6 +22,7 @@ class ItemDetailsPage extends StatefulWidget {
 }
 
 class ItemDetailsState extends State<ItemDetailsPage> {
+  final GlobalKey<ScaffoldState>scaffoldKey=GlobalKey<ScaffoldState>();
   final TextEditingController commentController = TextEditingController();
   CommentPresenter _commentPresenter = CommentPresenter();
   @override
@@ -51,6 +52,7 @@ class ItemDetailsState extends State<ItemDetailsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldKey,
       appBar: AppBar(title: Text('Item')),
       body: GestureDetector(
         onTap: () {
@@ -61,6 +63,7 @@ class ItemDetailsState extends State<ItemDetailsPage> {
             Card(
               elevation: 4.0,
               child: ItemDetailsCard(
+                scaffoldkey: scaffoldKey,
                 userName: widget.userName,
                 userImage: widget.userImage,
                 date: widget.date,

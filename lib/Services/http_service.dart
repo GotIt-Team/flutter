@@ -7,8 +7,8 @@ import 'package:gotit/services/user_data_service.dart';
 import 'package:path/path.dart';
 
 class Http {
-  static final String _csharpUrl = !kReleaseMode ? "localhost:54375" : "got-it.azurewebsites.net";
-  static final String _pythonUrl = !kReleaseMode ? "localhost:5000" : "ai-got-it.azurewebsites.net";
+  static final String _csharpUrl = !kReleaseMode ? "got-it.azurewebsites.net" : "got-it.azurewebsites.net";
+  static final String _pythonUrl = !kReleaseMode ? "ai-got-it.azurewebsites.net" : "ai-got-it.azurewebsites.net";
 
   static String _backendAppUrl(bool isCsharp) {
     return isCsharp ? 
@@ -21,6 +21,7 @@ class Http {
 
   static Result<TResponse> _getResult<TResponse>(Response response, dynamic Function(dynamic) mapper){
     var result = Result<TResponse>();
+    print('msa2 l 5ra');
     switch (response.statusCode) {
       case 200:
         // if there's a mapper function
@@ -29,6 +30,8 @@ class Http {
         } else {
           result.data = response.data['data'];
         }
+        print('after mapping');
+        print(result.data);
         result.count = response.data['count'];
         result.isSucceeded = response.data['isSucceeded'];
         result.message = response.data['message'];
