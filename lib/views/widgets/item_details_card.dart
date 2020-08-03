@@ -109,6 +109,7 @@ class ItemDetailsCardState extends State<ItemDetailsCard> {
     FocusScope.of(context).unfocus();
     if (_requestFormKey.currentState.validate()) {
       _requestFormKey.currentState.save();
+      Navigator.pop(context);
      Toast.showToast(context: context,title: 'Annoncement', message: 'Message Sent to $organization successfully',icon: Icons.done
        );
       _requestFormKey.currentState.reset();
