@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gotit/services/user_data_service.dart';
 import 'package:gotit/views/pages/chats_tab.dart';
 import 'package:gotit/views/pages/contact_us_tab.dart';
 import 'package:gotit/views/pages/items_tab.dart';
 import 'package:gotit/views/pages/notifications_tab.dart';
+import 'package:gotit/views/ui_elements/cached_image_element.dart';
 
 class TabsController extends StatefulWidget {
   @override
@@ -14,6 +16,8 @@ class TabsController extends StatefulWidget {
 
 class _TabsControllerState extends State<TabsController> {
   int _selectedIndex = 0;
+  String userImage;
+  
   // tap BottomNavigationBar will invoke this method
   void _onItemTapped(int index) {
     setState(() {
@@ -21,6 +25,11 @@ class _TabsControllerState extends State<TabsController> {
       _selectedIndex = index;
       // change app bar title
     });
+  }
+
+  void initState() {
+    super.initState();
+    userImage = UserData.user.picture;
   }
 
   final int tabsLength = 4;
@@ -69,7 +78,7 @@ class _TabsControllerState extends State<TabsController> {
                             child: CircleAvatar(
                               radius: 35,
                               backgroundImage:
-                                  AssetImage('assets/images/Sheka.jpg'),
+                                  CachedImage.provider(userImage),
                             ),
                           ),
                         )

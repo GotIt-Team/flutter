@@ -42,7 +42,7 @@ class MatchInformationState extends State<MatchInformationPage> {
 
   Future<void> _loadMatchedItem() async {
     if(context == null) return;
-    id = ModalRoute.of(context).settings.arguments;
+    id = 4;
     ProgressDialog.show(
       context: context,
       isCircular: false,

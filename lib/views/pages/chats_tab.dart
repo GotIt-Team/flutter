@@ -54,7 +54,7 @@ class ChatState extends State<ChatsTab> {
             time: chat.lastMessage?.time != null ? timeago.format(chat.lastMessage.time) : '',
             userName: chat.user.name,
             type: chat.lastMessage?.type != null ? chat.lastMessage.type : ContentType.text,
-            image: 'assets/images/Sheka.jpg',
+            image: chat.user.picture,
           );
         }
       ),

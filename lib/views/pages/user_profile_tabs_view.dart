@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gotit/services/user_data_service.dart';
 import 'package:gotit/views/pages/user_items_tab.dart';
 import 'package:gotit/views/pages/user_requests_tab.dart';
 import 'package:gotit/views/pages/user_settings_tab.dart';
+import 'package:gotit/views/ui_elements/cached_image_element.dart';
 
-class UserProfile extends StatelessWidget {
+class UserProfileTabs extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
@@ -30,7 +32,7 @@ class UserProfile extends StatelessWidget {
                       ),
                       child: CircleAvatar(
                         radius: 35,
-                        backgroundImage: AssetImage('assets/images/Sheka.jpg'),
+                        backgroundImage: CachedImage.provider(UserData.user.picture),
                       ),
                     ),
                   ]

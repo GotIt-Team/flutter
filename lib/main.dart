@@ -6,7 +6,7 @@ import 'package:gotit/views/pages/landing_view.dart';
 import 'package:gotit/views/pages/login_view.dart';
 import 'package:gotit/views/pages/registration_view.dart';
 import 'package:gotit/views/pages/tabs.dart';
-import 'package:gotit/views/pages/user_profile_view.dart';
+import 'package:gotit/views/pages/user_profile_tabs_view.dart';
 import 'package:gotit/views/pages/chat_room_view.dart';
 import 'package:gotit/views/widgets/full_image_view.dart';
 
@@ -50,7 +50,7 @@ class AppState extends State<App> {
         "/home": (BuildContext context) => TabsController(),
         "/sign-up": (BuildContext context) => RegistrationPage(),
         "/sign-in": (BuildContext context) => LoginPage(),
-        "/profile": (BuildContext context) => UserProfile(),
+        "/profile": (BuildContext context) => UserProfileTabs(),
         "/chat-messages": (BuildContext context) => ChatRoomPage(),
         "/add-post": (BuildContext context) => AddPostView(),
         "/full-image":(BuildContext context) => FullImageView(),

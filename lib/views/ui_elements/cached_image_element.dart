@@ -8,11 +8,11 @@ class CachedImage extends StatelessWidget {
   final Widget errorWidget;
   CachedImage(this.image, {this.fit, this.errorWidget});
 
-  static provider(String image) {
+  static provider(String image, {String defaultImage='assets/images/user.jpg'}) {
     try {
       return NetworkImage(image);
-    }catch (e) {
-      return AssetImage('assets/images/user.jpg');
+    } catch (e) {
+      return AssetImage(defaultImage);
     }
   }
 
@@ -26,5 +26,4 @@ class CachedImage extends StatelessWidget {
       colorBlendMode: BlendMode.dstATop,
     );
   }
-  
 }

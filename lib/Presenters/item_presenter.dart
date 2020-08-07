@@ -1,5 +1,4 @@
 import 'package:gotit/models/item_details_model.dart';
-import 'package:gotit/models/result_model.dart';
 import 'package:gotit/services/http_service.dart';
 
 class ItemPresenter {
@@ -7,28 +6,25 @@ class ItemPresenter {
   ItemDetails _itemDetails;
   String message;
 
-  Future<void> getItems(
-      int pageNo, int pageSize, String endpoint, bool isLost) async {
+  Future<void> getItems(int pageNo, int pageSize, String endpoint, bool isLost) async {
     var result = await Http.send<List<ItemDetails>>(
-        endpointUrl: endpoint,
-        queryParameters: {
-          'pageNo': pageNo,
-          'pageSize': pageSize,
-          'isLost': isLost
-        },
-        mapper: (dynamic data) {
-          print(data);
-          return data != null
-              ? List<ItemDetails>.generate(
-                  data.length, (index) => ItemDetails.fromJson(data[index]))
-              : [];
-        });
+      endpointUrl: endpoint,
+      queryParameters: {
+        'pageNo': pageNo,
+        'pageSize': pageSize,
+        'isLost': isLost
+      },
+      mapper: (dynamic data) {
+        return data != null
+          ? List<ItemDetails>.generate(
+            data.length, (index) => ItemDetails.fromJson(data[index]))
+          : [];
+      }
+    );
 
     if (result.isSucceeded) {
       _items = result.data;
     }
-    print(_items);
-    print(result.data);
   }
 
   Future<void> getItemDetails(int id) async {

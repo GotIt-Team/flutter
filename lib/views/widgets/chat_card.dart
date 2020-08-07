@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:gotit/enums/content_type_enum.dart';
 import 'package:gotit/helpers.dart';
 import 'package:gotit/views/pages/chat_room_view.dart';
+import 'package:gotit/views/ui_elements/cached_image_element.dart';
 
 class ChatCard extends StatelessWidget {
   final int id;
@@ -25,7 +26,7 @@ class ChatCard extends StatelessWidget {
       contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       leading: CircleAvatar(
         radius: 30,
-        backgroundImage: AssetImage(image),
+        backgroundImage: CachedImage.provider(image),
       ),
       title: Text(userName),
       subtitle: type == ContentType.text ? Text(Helpers.truncateWithEllipsis(lastMessage, 30)) : 

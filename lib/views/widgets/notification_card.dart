@@ -45,7 +45,7 @@ class NotificationCard extends StatelessWidget {
               subtitle: Text(date),
               //profile icon
               leading: CircleAvatar(
-                backgroundImage: AssetImage("assets/images/Sheka.jpg"),
+                backgroundImage: AssetImage("assets/images/logo.png"),
               )
             ),
           ),

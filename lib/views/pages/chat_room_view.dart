@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gotit/presenters/chat_presenter.dart';
 import 'package:gotit/services/validator_service.dart';
+import 'package:gotit/views/ui_elements/cached_image_element.dart';
 import 'package:gotit/views/widgets/chat_bubble.dart';
 import 'package:gotit/views/widgets/empty_state.dart';
 import 'package:gotit/views/widgets/progress_dialog.dart';
@@ -50,7 +51,7 @@ class ChatRoomState extends State<ChatRoomPage> {
       appBar: AppBar(
         title: ListTile(
           leading: CircleAvatar(
-              backgroundImage: AssetImage(widget.userImage)),
+              backgroundImage: CachedImage.provider(widget.userImage)),
           title: Text(
             widget.userName,
             style: TextStyle(color: Colors.white, fontSize: 18.0),

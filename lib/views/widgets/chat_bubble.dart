@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gotit/views/ui_elements/cached_image_element.dart';
 import 'package:gotit/views/widgets/bubble.dart';
 import 'package:intl/intl.dart';
 
@@ -22,7 +23,7 @@ class ChatBubble extends StatelessWidget {
             padding: EdgeInsets.only(left: 8.0),
             child: CircleAvatar(
               radius: 15,
-              backgroundImage: AssetImage(userImage),
+              backgroundImage: CachedImage.provider(userImage),
             ),
           ) : Container(),
           Bubble(
