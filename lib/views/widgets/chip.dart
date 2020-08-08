@@ -14,7 +14,6 @@ class TagChip extends StatelessWidget {
       label: label,
       avatar: icon,
       elevation: 4.0,
-      
       labelStyle: TextStyle(color: Color(0xff000000), fontSize: 14.0),
     );
   }

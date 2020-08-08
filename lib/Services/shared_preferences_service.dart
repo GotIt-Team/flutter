@@ -9,6 +9,7 @@ class SharedPreference{
   static Future<void> _init() async {
     if(_prefs == null) {
       _prefs = await SharedPreferences.getInstance();
+      _prefs.clear();
     }
   }
 

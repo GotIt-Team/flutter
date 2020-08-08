@@ -7,7 +7,7 @@ import 'package:gotit/services/user_data_service.dart';
 import 'package:path/path.dart';
 
 class Http {
-  static final String _csharpUrl = !kReleaseMode ? "192.168.1.38:45455" : "got-it.azurewebsites.net";
+  static final String _csharpUrl = !kReleaseMode ? "got-it.azurewebsites.net" : "got-it.azurewebsites.net";
   static final String _pythonUrl = !kReleaseMode ? "192.168.1.38:8080" : "ai-got-it.azurewebsites.net";
 
   static String _backendAppUrl(bool isCsharp) {

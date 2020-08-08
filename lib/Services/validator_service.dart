@@ -86,4 +86,8 @@ class Validator {
 
     return null;
   }
+
+  static String empty(String value) {
+    return null;
+  }
 }

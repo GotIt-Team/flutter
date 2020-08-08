@@ -4,6 +4,11 @@ class DetectedBox{
   String label;
   List<int>box;
   Float confidence;
-  String embeddings; 
-  DetectedBox({this.box,this.confidence,this.embeddings,this.label});
+  DetectedBox({this.box,this.confidence,this.label});
+
+  DetectedBox.fromJson(data) {
+    label = data['label'];
+    box = data['box'];
+    confidence = data['confidence'];
+  }
 }

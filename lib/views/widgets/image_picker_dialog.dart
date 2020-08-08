@@ -15,7 +15,7 @@ class ImagePickerDialog {
   static const int max_len = 1024 * 1024 * 5;
 
   Future<String> getImage(BuildContext context) async {
-    var file = await showModalBottomSheet(context: context, builder: (BuildContext context) => _build(context));
+    var file = await showModalBottomSheet(context: context, builder: _build);
     if(file == null) return null;
     await ProgressDialog.show(
       context: context,

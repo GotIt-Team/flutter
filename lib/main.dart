@@ -52,7 +52,7 @@ class AppState extends State<App> {
         "/sign-in": (BuildContext context) => LoginPage(),
         "/profile": (BuildContext context) => UserProfileTabs(),
         "/chat-messages": (BuildContext context) => ChatRoomPage(),
-        "/add-post": (BuildContext context) => AddPostView(),
+        "/add-post": (BuildContext context) => AddPost(),
         "/full-image":(BuildContext context) => FullImageView(),
       }
     );
