@@ -1,45 +1,45 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gotit/enums/dialog_buttons_enum.dart';
 import 'package:gotit/enums/item_type.dart';
 import 'package:gotit/enums/lost_found_enum.dart';
 import 'package:gotit/presenters/add_post_presenter.dart';
+import 'package:gotit/services/state_message_service.dart';
 import 'package:gotit/services/validator_service.dart';
 import 'package:gotit/views/item_attributes/item_attributes_map.dart';
 import 'package:gotit/views/ui_elements/dropdown_element.dart';
+import 'package:gotit/views/widgets/alert_dialog.dart';
 import 'package:gotit/views/widgets/image_picker_dialog.dart';
 import 'package:gotit/views/widgets/images_listview.dart';
+import 'package:gotit/views/widgets/progress_dialog.dart';
 
 import 'package:gotit/views/widgets/styled_material_buttom.dart';
 
-import '../../helpers.dart';
+import 'package:gotit/helpers.dart';
 
-class AddPost extends StatefulWidget {
+class AddItem extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return AddPostState();
+    return AddItemState();
   }
 }
 
-class AddPostState extends State<AddPost> {
+class AddItemState extends State<AddItem> {
   List<GlobalKey<FormState>> _forms = List.generate(3, (int index) => GlobalKey<FormState>());
   int _currentStep = 0;
+  String option;
   AddPostPresenter _addPostPresenter = AddPostPresenter();
   ImagePickerDialog _imagePicker = ImagePickerDialog();
   List<String> images = [];
   void _addPhoto() async {
-    if (_addPostPresenter.itemDetails.type == ItemType.object &&
-        images.length >= 1) {
-      print('dah object ya m3alem sora wa7da kfaya');
-    } else {
-      _imagePicker.getImage(context).then((String value) {
-        if (value != null) {
-          setState(() {
-            images.add(value);
-            print(images);
-          });
-        }
-      });
-    }
+    _imagePicker.getImage(context).then((String value) {
+      if (value != null) {
+        setState(() {
+          _addPostPresenter.itemDetails.images.add(value);
+          print(images);
+        });
+      }
+    });
   }
 
   void removeImage(int index) {
@@ -60,17 +60,60 @@ class AddPostState extends State<AddPost> {
         child: Stepper(
           currentStep: _currentStep,
           type: StepperType.horizontal,
+          controlsBuilder: (context, {onStepContinue, onStepCancel}) => ButtonBar(
+            children: <Widget>[
+              FlatButton(
+                child: Text('Next'),
+                onPressed: onStepContinue,
+              ),
+              FlatButton(
+                child: Text('Previous'),
+                onPressed: onStepCancel,
+              )
+            ]
+          ),
           onStepContinue: () async {
-            if(_currentStep == 0) {
-              await _addPostPresenter.detectObjects();
+            if (!_forms[_currentStep].currentState.validate()) return;
+            if(_currentStep == 2) {
+              await ProgressDialog.show(
+                context: context,
+                isCircular: false,
+                method: () => Future.delayed(Duration(seconds: 3))
+              );
+              await DialogBox.show(
+                context: context,
+                title: Text('Done'),
+                content: Column(
+                  children: <Widget>[
+                    Text(
+                      'Your Item has been add',
+                      style: TextStyle(
+                        fontSize: 20,
+                      ),
+                      textAlign: TextAlign.center
+                    ),
+                    Text(
+                      'Once Our Matching engine find this item we will send a notification',
+                      style: TextStyle(
+                        fontSize: 18
+                      ),
+                      textAlign: TextAlign.center
+                    ),
+                  ],
+                ),
+                dialogButton: DialogButtons.ok
+              );
+              Navigator.pushReplacementNamed(context, '/home');
+              return;
             }
-            if (_addPostPresenter.itemDetails.images.length == 0) return;
-            if (_currentStep >= 2 || !_forms[_currentStep].currentState.validate()) return;
             _forms[_currentStep].currentState.save();
+            if (_addPostPresenter.itemDetails.images.length == 0) return;
+            if(_currentStep == 0) {
+              await _addPostPresenter.detectObjects(context);
+            }
             setState(() {
               _currentStep += 1;
             });
-            
           },
           onStepCancel: () {
             if (_currentStep <= 0) return;
@@ -89,12 +132,11 @@ class AddPostState extends State<AddPost> {
                     DropdownElement(
                       validator: Validator.requiredField,
                       icon: Icon(Icons.arrow_drop_down),
+                      value: option,
                       onSaved: (String value) {
-                        value == 'lost'
-                            ? _addPostPresenter
-                                .itemDetails.isLost = true
-                            : _addPostPresenter
-                                .itemDetails.isLost = false;
+                        option = value;
+                        _addPostPresenter.itemDetails.isLost = 
+                          value == 'lost' ? true : false;
                       },
                       items:
                           Helpers.getListOfStringsFromEnum(LostOrFound.values),
@@ -118,7 +160,7 @@ class AddPostState extends State<AddPost> {
                         onpress: _addPhoto,
                         icon: Icon(Icons.photo),
                         text: Text('Add Photo')),
-                    ImagesListView(images, removeImage),
+                    ImagesListView(_addPostPresenter.itemDetails.images, removeImage),
                   ],
                 ),
               ),
@@ -127,7 +169,8 @@ class AddPostState extends State<AddPost> {
               title: Text("Attributes"),
               content:Form(
                key:_forms[1],
-               child: ItemAttributes.widget['car']),
+               child: _addPostPresenter.itemDetails.type == ItemType.person ? ItemAttributes.widget['person'] : ItemAttributes.widget['laptop']
+              ),
             ),
             Step(
               title: Text("Content"),

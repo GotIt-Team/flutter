@@ -6,10 +6,8 @@ class Pagination extends StatefulWidget {
   final Future<bool> Function() onLoad;
   final IndexedWidgetBuilder itemBuilder;
   final int itemCount;
-  final int pageSize;
-  final int pageNo;
-  final int totalCount;
-  Pagination({this.itemBuilder, this.onLoad, this.itemCount, this.pageNo, this.pageSize, this.totalCount});
+  final bool hasMore;
+  Pagination({this.itemBuilder, this.onLoad, this.itemCount, this.hasMore});
 
   @override
   State<StatefulWidget> createState() => PaginationState();
@@ -18,6 +16,7 @@ class Pagination extends StatefulWidget {
 
 class PaginationState extends State<Pagination> {
   bool isLoading;
+  bool hasError;
   
   @override
   void initState() {
@@ -27,31 +26,35 @@ class PaginationState extends State<Pagination> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: widget.itemCount + 1,
-      itemBuilder: (context, index) {
-        return index != widget.itemCount ?
-          widget.itemBuilder(context, index) :
-          Center(
-            child: !isLoading ? RoundedButton(
-              label: 'Show more',
-              onPressed: () {
-                setState(() {
-                  isLoading = true;
-                });
-                widget.onLoad().then((value) {
-                  if(value) {
-                    setState(() {
-                      isLoading = false;
-                    });
-                  }
-                });
-              },
-            ) : CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColor)
-            )
-          );
-      },
+    return ListView(
+      children: <Widget>[
+        ListView.builder(itemCount: widget.itemCount, itemBuilder: widget.itemBuilder),
+        widget.hasMore ? Center(
+          child: !isLoading ? RoundedButton(
+            label: 'Show more',
+            onPressed: () {
+              setState(() {
+                isLoading = true;
+              });
+              widget.onLoad().then((value) {
+                if(value) {
+                  setState(() {
+                    isLoading = false;
+                    hasError = true;
+                  });
+                } else {
+                  setState(() {
+                    isLoading = false;
+                    hasError = true;
+                  });
+                }
+              });
+            },
+          ) : CircularProgressIndicator(
+            valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColor)
+          )
+        ) : Container()
+      ],
     );
   }
 

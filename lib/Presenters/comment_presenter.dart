@@ -15,17 +15,7 @@ class CommentPresenter {
         picture: UserData.user.picture
       )
     );
-
-    var result = await Http.send<int>(
-      endpointUrl: '${'item/$itemId/comment'}',
-      method: 'POST',
-      body: comment,
-    );
-    
-    if(result.isSucceeded){
-      comment.id = result.data;
-      _comments.add(comment);
-    }
+    _comments.add(comment);
   }
   
 

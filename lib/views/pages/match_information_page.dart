@@ -6,6 +6,7 @@ import 'package:gotit/enums/result_message_enum.dart';
 import 'package:gotit/helpers.dart';
 import 'package:gotit/presenters/item_presenter.dart';
 import 'package:gotit/services/state_message_service.dart';
+import 'package:gotit/views/pages/chat_room_view.dart';
 import 'package:gotit/views/widgets/alert_dialog.dart';
 import 'package:gotit/views/widgets/empty_state.dart';
 import 'package:gotit/views/widgets/item_details_card.dart';
@@ -42,7 +43,8 @@ class MatchInformationState extends State<MatchInformationPage> {
 
   Future<void> _loadMatchedItem() async {
     if(context == null) return;
-    id = 4;
+    var link = ModalRoute.of(context).settings.arguments as String;
+    id = int.parse(link.split('/').last);
     ProgressDialog.show(
       context: context,
       isCircular: false,
@@ -90,7 +92,11 @@ class MatchInformationState extends State<MatchInformationPage> {
             if (result == DialogResult.no) {
 
             } else {
-              
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ChatRoomPage(
+                id: 1,
+                userName: itemPresenter.itemDetails.user.name,
+                userImage: itemPresenter.itemDetails.user.picture
+              )));
             }
           }
         ),

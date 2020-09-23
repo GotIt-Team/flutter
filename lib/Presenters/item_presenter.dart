@@ -23,7 +23,7 @@ class ItemPresenter {
     );
 
     if (result.isSucceeded) {
-      _items = result.data;
+      _items.addAll(result.data);
     }
   }
 

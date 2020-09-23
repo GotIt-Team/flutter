@@ -9,8 +9,14 @@ class SharedPreference{
   static Future<void> _init() async {
     if(_prefs == null) {
       _prefs = await SharedPreferences.getInstance();
-      _prefs.clear();
     }
+  }
+
+  static Future<bool> clear() async {
+    if(_prefs != null) {
+      return await _prefs.clear();
+    }
+    return true;
   }
 
   static Future<T> getData<T>({@required SharedPreferenceKeys key, dynamic Function(dynamic) mapper}) async {

@@ -43,7 +43,7 @@ class _TabsControllerState extends State<TabsController> {
               ? FloatingActionButton(
                   onPressed: () => Navigator.pushNamed(
                     context,
-                    '/add-post',
+                    '/add-item',
                   ),
                   child: Icon(Icons.add),
                   backgroundColor: Theme.of(context).primaryColor,

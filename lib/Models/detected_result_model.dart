@@ -11,6 +11,6 @@ class DetectionResult{
     if(data == null) return;
     imageName = data['imageName'];
     count = data['count'];
-    boxes = List.generate(data['detected'].length, (index) => DetectedBox.fromJson(data['detected'][index]));
+    boxes = List.generate(data['detectd'].length, (index) => DetectedBox.fromJson(data['detectd'][index]));
   }
 }

@@ -10,7 +10,7 @@ class Toast {
       aroundPadding: EdgeInsets.all(10),
       borderRadius: 8,
       backgroundGradient: LinearGradient(
-        colors: [Colors.green.shade800, Colors.greenAccent.shade700],
+        colors: [Colors.blue.shade800, Colors.blue.shade700],
         stops: [0.6, 1],
       ),
       icon: Icon(

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gotit/views/ui_elements/cached_image_element.dart';
 import 'package:gotit/views/widgets/bubble.dart';
 
 import 'package:timeago/timeago.dart' as timeago;
@@ -46,10 +47,11 @@ class CommentView extends StatelessWidget {
             ),
           ),
           leading: CircleAvatar(
-            backgroundImage: AssetImage(picture),
+            backgroundImage: CachedImage.provider(picture),
           ),
           subtitle: Text(
-              timeago.format(DateTime.now().subtract(Duration(minutes: 5)))),
+            timeago.format(DateTime.now())
+          ),
         ),
         Divider(),
       ],

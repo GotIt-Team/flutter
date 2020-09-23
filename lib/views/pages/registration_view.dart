@@ -34,7 +34,7 @@ class RegistrationPage extends StatelessWidget {
             ),
             dialogButton: DialogButtons.ok
           ).then((value) {
-            if(!flag || !(resultMessage == ResultMessage.emailExists)) {
+            if(!flag) {
               Navigator.pop(context);
             }
           });

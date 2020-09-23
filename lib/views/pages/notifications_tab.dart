@@ -56,6 +56,7 @@ class NotificationsState extends State<NotificationsTab> {
           link: notificationsPresenter.notifications[index].link,
           userImage: notificationsPresenter.notifications[index].sender.picture,
           userName: notificationsPresenter.notifications[index].sender.name,
+          type: notificationsPresenter.notifications[index].type,
         );
       },  
     ) : EmptyState(

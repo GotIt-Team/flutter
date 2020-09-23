@@ -1,14 +1,13 @@
-import 'dart:ffi';
 
 class DetectedBox{
   String label;
   List<int>box;
-  Float confidence;
+  double confidence;
   DetectedBox({this.box,this.confidence,this.label});
 
   DetectedBox.fromJson(data) {
     label = data['label'];
-    box = data['box'];
+    box = List.generate(4, (index) => data['box'][index]);
     confidence = data['confidence'];
   }
 }

@@ -1,9 +1,9 @@
+import 'package:decamelize/decamelize.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gotit/enums/MenuActions.dart';
 import 'package:gotit/enums/menu_results.dart';
-
-import '../../helpers.dart';
+import 'package:gotit/helpers.dart';
 
 class PopUpMenuElement extends StatelessWidget {
   final MenuActions actions;
@@ -18,7 +18,7 @@ class PopUpMenuElement extends StatelessWidget {
             .map((String choice) {
           return PopupMenuItem<String>(
             value: choice,
-            child: Text(choice),
+            child: Text(decamelize(choice, ' ')),
           );
         }).toList();
       },

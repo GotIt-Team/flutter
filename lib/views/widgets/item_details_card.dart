@@ -1,3 +1,4 @@
+import 'package:decamelize/decamelize.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gotit/enums/attributes_enum.dart';
@@ -12,6 +13,7 @@ import 'package:gotit/views/ui_elements/cached_image_element.dart';
 import 'package:gotit/views/widgets/chip.dart';
 import 'package:gotit/views/widgets/images_slider.dart';
 import 'package:gotit/views/widgets/pop_up_menu.dart';
+import 'package:gotit/views/widgets/progress_dialog.dart';
 import 'package:gotit/views/widgets/toast.dart';
 
 class ItemDetailsCard extends StatefulWidget {
@@ -57,7 +59,7 @@ class ItemDetailsCardState extends State<ItemDetailsCard> {
             onSaved: (value) => organization = value,
             validator: Validator.requiredField,
             icon: Icon(Icons.arrow_drop_down_circle),
-            items: Helpers.getListOfStringsFromEnum(Organizations.values),
+            items: Helpers.getListOfStringsFromEnum(Organizations.values).map((item) => decamelize(item, ' ')).toList(),
             decoration: InputDecoration(
                 icon: Icon(Icons.work), labelText: 'Organizations'),
           ),
@@ -100,18 +102,22 @@ class ItemDetailsCardState extends State<ItemDetailsCard> {
               function: () => print('samo3aleko'),
               icon: Icon(Icons.gps_fixed),
               label:
-                  Text(Helpers.getStringFromEnum(key) + ': ' + attributes[key]),
+                  Text(decamelize(Helpers.getStringFromEnum(key), ' ') + ': ' + attributes[key]),
             ))
         .toList();
   }
 
-  void _submitRequestForm(BuildContext context) {
+  void _submitRequestForm(BuildContext context) async {
     FocusScope.of(context).unfocus();
     if (_requestFormKey.currentState.validate()) {
       _requestFormKey.currentState.save();
+      await ProgressDialog.show(
+        context: context,
+        isCircular: false,
+        method: () => Future.delayed(Duration(seconds: 2))
+      );
       Navigator.pop(context);
-     Toast.showToast(context: context,title: 'Annoncement', message: 'Message Sent to $organization successfully',icon: Icons.done
-       );
+      Toast.showToast(context: context,title: 'Annoncement', message: 'Message Sent to $organization successfully',icon: Icons.done);
       _requestFormKey.currentState.reset();
     }
   }
@@ -129,8 +135,7 @@ class ItemDetailsCardState extends State<ItemDetailsCard> {
             trailing: PopUpMenuElement(
                 actions: MenuActions.iFoundThis_reportAnOrganization,
                 onSelect: (MenuResult chosen) {
-                  if (chosen == MenuResult.none) {
-                  } else if (chosen == MenuResult.reportAnOrganization) {
+                  if (chosen == MenuResult.reportAnOrganization) {
                     showModalBottomSheet(
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.vertical(
@@ -139,8 +144,9 @@ class ItemDetailsCardState extends State<ItemDetailsCard> {
                         context: context,
                         builder: (BuildContext context) =>
                             _buildRequestForm(context));
-                  } else if (chosen == MenuResult.reportAnOrganization) {
-                    Navigator.pushNamed(context, '/add-post');
+                  } else if (chosen == MenuResult.iFoundThis) {
+                    Navigator.pushNamed(context, '/add-item');
+                    return;
                   }
                 })),
         ImageSlider(

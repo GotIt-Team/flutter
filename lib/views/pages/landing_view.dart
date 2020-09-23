@@ -33,26 +33,7 @@ class LandingPage extends StatelessWidget{
                   width: MediaQuery.of(context).size.width * 0.50,
                   height: MediaQuery.of(context).size.height * 0.07
                 ),
-                Padding(
-                  padding: EdgeInsets.only(top: 20),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      RaisedButton(
-                        padding: EdgeInsets.all(15),
-                        child: Icon(MdiIcons.facebook, size: 25),
-                        onPressed: () => print('facebook'),
-                        shape: CircleBorder()
-                      ),
-                      RaisedButton(
-                        padding: EdgeInsets.all(15),
-                        child: Icon(MdiIcons.google, size: 25),
-                        onPressed: () => print('Google'),
-                        shape: CircleBorder()
-                      )
-                    ],
-                  ),
-                ),
+                
               ],
             )
           ),

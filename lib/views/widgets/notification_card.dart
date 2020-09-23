@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gotit/enums/notification_type.dart';
 import 'package:gotit/helpers.dart';
 import 'package:gotit/presenters/notifications_presenter.dart';
 
@@ -10,8 +11,9 @@ class NotificationCard extends StatelessWidget {
   final bool isSeen;
   final String userName;
   final String userImage;
+  final NotificationType type;
   final NotificationsPresenter _notificationPresenter = NotificationsPresenter();
-  NotificationCard({this.id, this.link, this.content, this.date, this.isSeen, this.userName, this.userImage});
+  NotificationCard({this.id, this.link, this.content, this.date, this.isSeen, this.userName, this.userImage, this.type});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +27,17 @@ class NotificationCard extends StatelessWidget {
       child: InkWell(
         onTap: () {
           _notificationPresenter.readNotification(id);
-          Navigator.pushNamed(context, link);
+          switch(type) {
+            case NotificationType.match:
+              Navigator.pushNamed(context, '/match', arguments: link);
+              break;
+            case NotificationType.comment:
+              break;
+            case NotificationType.request:
+              break;
+            case NotificationType.message:
+              break;
+          }
         },
         child: Card(
           shape: RoundedRectangleBorder(
